@@ -1,0 +1,17 @@
+.footNote {
+    font-size: 12px;
+    font-weight: Regular;
+    color: var(--foot-color);
+    width: 90svw;
+    text-align: center;
+}
+
+.footNote a {
+    color: var(--foot-color);
+}
+
+@media (min-width: 1200px) {
+    .footNote {
+        width: 80%;
+    }
+}

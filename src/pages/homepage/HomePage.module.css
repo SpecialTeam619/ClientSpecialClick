@@ -1,0 +1,25 @@
+.pageSeparator {
+    height: 50dvh;
+    width: 100svw;
+    display: flex;
+    align-items: center;
+    flex-direction: column-reverse;
+}
+
+.pageSeparator h4 {
+    margin: 0.5rem;
+}
+
+.logoText {
+    line-height: 1;
+}
+
+@media (min-width: 1200px) {
+    .pageSeparator {
+        height: 20dvh;
+        width: 100svw;
+        display: flex;
+        align-items: center;
+        flex-direction: column-reverse;
+    }
+}

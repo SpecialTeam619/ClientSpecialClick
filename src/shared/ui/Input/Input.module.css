@@ -1,0 +1,20 @@
+.input {
+    background-color: var(--quaternary-color);
+    color: black;
+    border: 2px solid var(--secondary-color);
+    border-radius: 20px;
+    cursor: pointer;
+    width: 90svw;
+    line-height: 3rem;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+    text-indent: 22px;
+    margin-top: 1rem;
+}
+
+@media (min-width: 1200px) {
+    .input {
+        width: auto;
+    }
+}
