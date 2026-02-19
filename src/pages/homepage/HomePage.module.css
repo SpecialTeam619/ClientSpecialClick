@@ -12,6 +12,12 @@
 
 .logoText {
     line-height: 1;
+    font-weight: 400;
+    line-height: 160%;
+}
+
+.login {
+    color: var(--tertiary-color);
 }
 
 @media (min-width: 1200px) {

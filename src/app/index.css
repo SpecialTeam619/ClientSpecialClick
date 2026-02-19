@@ -17,8 +17,8 @@
     /* Colors */
     --text-color: #000000;
     --primary-color: #ffffff;
-    --secondary-color: #0a66ff;
-    --tertiary-color: #ff7f1c;
+    --secondary-color: #000000;
+    --tertiary-color: #0066FF;
     --quaternary-color: #f9f9f9;
     --foot-color: #5e5e5e;
 }
@@ -41,7 +41,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Manrope', sans-serif;
 }
 
 h1 {

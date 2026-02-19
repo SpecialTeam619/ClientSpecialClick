@@ -76,3 +76,7 @@
     width: 100%;
     border-radius: 10px;
 }
+
+.basementIndent {
+    height: 10svh;
+}

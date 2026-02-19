@@ -1,8 +1,6 @@
 .button {
     background-color: var(--foot-color);
-    color: var(--primary-color);
     border: none;
-    border-radius: 20px;
     cursor: pointer;
     width: 90svw;
     line-height: 1.6;
@@ -11,6 +9,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-right: 1rem;
+}
+
+.link {
+    color: var(--primary-color);
+    text-decoration: none;
 }
 
 .button h3 {

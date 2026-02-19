@@ -6,13 +6,13 @@ function HomePage() {
     return (
         <>
             <div className={styles.pageSeparator}>
-                <h4 className={styles.logoText}>Аренда спецтехники рядом с вами</h4>
+                <h4 className={styles.logoText}>аренда спецтехники рядом с вами</h4>
                 <Logo />
             </div>
             <div className={styles.pageSeparator}>
                 <FootNote>
                     {'Уже есть аккаунт? '}
-                    <Link to="/login">{'Войти'}</Link>
+                    <Link to="/login" className={styles.login}>{'Войти'}</Link>
                 </FootNote>
                 <Button text="Начать" to="/register"/>
             </div>

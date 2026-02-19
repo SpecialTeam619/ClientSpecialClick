@@ -37,6 +37,7 @@ export default function ChoiseCards() {
                     </label>
                 ))}
             </div>
+            <div className={styles.basementIndent}></div>
             <Basement to="/"/>
         </>
     );
