@@ -1,6 +1,5 @@
 /* Styles for Register page */
 .main {
-    height: 100svw;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -21,7 +20,8 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    width: 100svw;
+    align-items: center;
 }
 
 .fieldsetCard .box {
@@ -36,7 +36,7 @@
     height: auto;
     border-radius: 20px;
     background-color: var(--quaternary-color);
-    border: 2px solid #f1f1f5;
+    border: 2px solid var(--secondary-color);
     will-change: transform;
     overflow: hidden;
     margin: 0.5rem;
@@ -44,7 +44,7 @@
 }
 
 .box.active {
-    border: 2px solid var(--secondary-color);
+    border: 2px solid var(--tertiary-color);
 }
 
 .additional {

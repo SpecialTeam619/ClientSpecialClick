@@ -1,8 +1,7 @@
 .input {
     background-color: var(--quaternary-color);
     color: black;
-    border: 2px solid var(--secondary-color);
-    border-radius: 20px;
+    border: 1.5px solid var(--secondary-color);
     cursor: pointer;
     width: 90svw;
     line-height: 3rem;
@@ -11,6 +10,8 @@
     font-weight: bold;
     text-indent: 22px;
     margin-top: 1rem;
+    mask-image: paint(smooth-corners);
+    border-radius: 20px;
 }
 
 @media (min-width: 1200px) {
