@@ -44,7 +44,7 @@ function Register_role() {
                 </div>
             </div>
             <EmptyBlock />
-            <Basement to="/cards" />
+            <Basement to="/cards/filter" />
         </>
     );
 }
