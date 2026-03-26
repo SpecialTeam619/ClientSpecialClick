@@ -5,3 +5,4 @@ export { default as RegisterSmsCode } from './register/sms-code';
 export { default as RegisterRole } from './register/role';
 export { ChoiseCards } from './catalog';
 export { FilterPage } from './filter';
+export { AdressPage } from './address';

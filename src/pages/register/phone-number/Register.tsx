@@ -10,6 +10,7 @@ function Register_phone_number() {
     const [check, setCheck] = useState(false);
 
     function handlePhone(value) {
+        value = value.target.value
         setPhone(value);
         if (String(value) === '') {
             setCheck(false);
@@ -26,7 +27,7 @@ function Register_phone_number() {
                 <Input
                     type="tel"
                     placeholder="+7 (___) ___-__-__"
-                    setInput={handlePhone}
+                    onInput={handlePhone}
                 />
                 <Link to="/register/sms-code"></Link>
                 <FootNote>

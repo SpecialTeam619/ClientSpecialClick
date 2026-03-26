@@ -1,0 +1,25 @@
+.map {
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: calc(60vh + 20px);
+    background-color: black;
+}
+
+.actionWindow {
+    position: absolute;
+    bottom: 0;
+    width: 100vw;
+    height: 40vh;
+    border-radius: 20px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title {
+    margin-top: 20px;
+    font-size: 6svw;
+    font-weight: bold;
+}

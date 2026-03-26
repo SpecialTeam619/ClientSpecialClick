@@ -1,16 +1,12 @@
 .basement {
     position: fixed;
     bottom: 0;
-    width: 100svw;
+    width: calc(100svw - 2rem);
     height: 57px;
     display: flex;
     align-items: center;
     justify-content: start;
-    margin-bottom: 1rem;
-}
-
-.basement a {
-    margin-right: 1rem;
+    margin: 1rem 0 1rem 1rem;
 }
 
 .link {
@@ -21,7 +17,7 @@
     align-items: center;
     background-color: #f3f3f3;
     border-radius: 20px;
-    margin: 0.7rem;
+    margin-right: 0.7rem;
 }
 
 .link img {

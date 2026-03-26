@@ -3,7 +3,16 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './index.css';
 
-import { HomePage, Login, RegisterPhoneNumber, RegisterSmsCode, RegisterRole, ChoiseCards, FilterPage } from '@pages';
+import {
+    HomePage,
+    Login,
+    RegisterPhoneNumber,
+    RegisterSmsCode,
+    RegisterRole,
+    ChoiseCards,
+    FilterPage,
+    AdressPage,
+} from '@pages';
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
@@ -17,8 +26,9 @@ createRoot(document.getElementById('root')!).render(
                     element={<RegisterSmsCode />}
                 />
                 <Route path="/register/role" element={<RegisterRole />} />
-                <Route path="/cards" element={<ChoiseCards/>} />
+                <Route path="/cards" element={<ChoiseCards />} />
                 <Route path="/cards/filter" element={<FilterPage />} />
+                <Route path="/adress" element={<AdressPage />} />
             </Routes>
         </BrowserRouter>
     </StrictMode>,

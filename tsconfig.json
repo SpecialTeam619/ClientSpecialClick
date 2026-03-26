@@ -23,11 +23,16 @@
 
         /* Path aliases */
         "baseUrl": "src",
+        "typeRoots": [
+            "./node_modules/@types",
+            "./node_modules/@yandex/ymaps3-types"
+        ],
         "paths": {
             "@app/*": ["./src/app/*"],
             "@pages/*": ["./src/pages/*"],
             "@widgets/*": ["./src/widgets/*"],
-            "@shared/*": ["./src/shared/*"]
+            "@shared/*": ["./src/shared/*"],
+            "ymaps3": ["./node_modules/@yandex/ymaps3-types"]
         },
 
         /* Linting */
