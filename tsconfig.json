@@ -28,10 +28,14 @@
             "./node_modules/@yandex/ymaps3-types"
         ],
         "paths": {
-            "@app/*": ["./src/app/*"],
-            "@pages/*": ["./src/pages/*"],
-            "@widgets/*": ["./src/widgets/*"],
-            "@shared/*": ["./src/shared/*"],
+            "@app": ["./app/index.ts"],
+            "@app/*": ["./app/*"],
+            "@pages": ["./pages/index.ts"],
+            "@pages/*": ["./pages/*"],
+            "@widgets": ["./widgets/index.ts"],
+            "@widgets/*": ["./widgets/*"],
+            "@shared": ["./shared/ui/index.ts"],
+            "@shared/*": ["./shared/*"],
             "ymaps3": ["./node_modules/@yandex/ymaps3-types"]
         },
 

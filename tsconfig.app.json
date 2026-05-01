@@ -1,40 +1,42 @@
 {
-  "compilerOptions": {
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
-    "target": "ES2022",
-    "useDefineForClassFields": true,
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
-    "types": ["vite/client"],
-    "skipLibCheck": true,
+    "compilerOptions": {
+        "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+        "target": "ES2022",
+        "useDefineForClassFields": true,
+        "lib": ["ES2022", "DOM", "DOM.Iterable"],
+        "module": "ESNext",
+        "types": ["vite/client"],
+        "skipLibCheck": true,
 
-    /* Bundler mode */
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "verbatimModuleSyntax": true,
-    "moduleDetection": "force",
-    "noEmit": true,
-    "jsx": "react-jsx",
+        /* Bundler mode */
+        "moduleResolution": "bundler",
+        "allowImportingTsExtensions": true,
+        "verbatimModuleSyntax": true,
+        "moduleDetection": "force",
+        "noEmit": true,
+        "jsx": "react-jsx",
 
-    /* Path aliases */
-    "baseUrl": ".",
-    "paths": {
-      "@app/*": ["./src/app/*"],
-      "@pages/*": ["./src/pages/*"],
-      "@widgets": ["./src/widgets"],
-      "@widgets/*": ["./src/widgets/*"],
-      "@shared": ["./src/shared/ui"],
-      "@shared/*": ["./src/shared/*"],
-      "ymaps3": ["./node_modules/@yandex/ymaps3-types"]
+        /* Path aliases */
+        "rootDirs": ["./"],
+        "paths": {
+            "@app": ["./src/app/index.ts"],
+            "@app/*": ["./src/app/*"],
+            "@pages": ["./src/pages/index.ts"],
+            "@pages/*": ["./src/pages/*"],
+            "@widgets": ["./src/widgets"],
+            "@widgets/*": ["./src/widgets/*"],
+            "@shared": ["./src/shared/ui"],
+            "@shared/*": ["./src/shared/*"],
+            "ymaps3": ["./node_modules/@yandex/ymaps3-types"]
+        },
+
+        /* Linting */
+        "strict": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "erasableSyntaxOnly": true,
+        "noFallthroughCasesInSwitch": true,
+        "noUncheckedSideEffectImports": true
     },
-
-    /* Linting */
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "erasableSyntaxOnly": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
-  },
-  "include": ["src"]
+    "include": ["src"]
 }

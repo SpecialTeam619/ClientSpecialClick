@@ -1,15 +1,15 @@
 import { useState } from 'react';
+import { Basement } from '@widgets';
 import {
-    Basement,
     YMap,
     YMapDefaultFeaturesLayer,
     YMapDefaultSchemeLayer,
     reactify,
     YMapMarker,
-} from '@widgets';
+} from '@widgets/map';
 import Input from '@shared/ui/Input/Input';
 import styles from './style.module.css';
-import type {YMapLocationRequest} from 'ymaps3';
+import type { YMapLocationRequest } from 'ymaps3';
 
 export default function AdressPage() {
     const [address, setAdress] = useState('');

@@ -11,17 +11,27 @@
             href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manrope:wght@200..800&display=swap"
             rel="stylesheet"
         />
-        <script
-            src="https://api-maps.yandex.ru/v3/?apikey=98df197d-f166-46b2-a7e3-eed0bf50afcf&lang=ru_RU"
-            type="text/javascript"
-        ></script>
+        <script>
+            const enableYandexMaps = '%VITE_ENABLE_YANDEX_MAPS%' === 'true';
+
+            if (enableYandexMaps) {
+                const yandexScript = document.createElement('script');
+
+                yandexScript.src =
+                    'https://api-maps.yandex.ru/v3/?apikey=%VITE_YANDEX_MAPS_API_KEY%&lang=en_US';
+                yandexScript.type = 'text/javascript';
+                yandexScript.async = true;
+
+                document.head.appendChild(yandexScript);
+            } else {
+                console.log(
+                    'Yandex Maps API is disabled. To enable it, set VITE_ENABLE_YANDEX_MAPS to true in your environment variables.',
+                );
+            }
+        </script>
     </head>
     <body>
         <div id="root"></div>
         <script type="module" src="/src/app/main.tsx"></script>
-
-        <script>
-            
-        </script>
     </body>
 </html>
