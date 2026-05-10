@@ -14,7 +14,7 @@ function HomePage() {
                     {'Уже есть аккаунт? '}
                     <Link to="/login" className={styles.login}>{'Войти'}</Link>
                 </FootNote>
-                <Button text="Начать" to="/register"/>
+                <Button text="Начать" to="/register/name"/>
             </div>
         </>
     );

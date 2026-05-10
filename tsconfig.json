@@ -22,7 +22,7 @@
         "jsx": "react-jsx",
 
         /* Path aliases */
-        "baseUrl": "src",
+        // "baseUrl": "./src",
         "typeRoots": [
             "./node_modules/@types",
             "./node_modules/@yandex/ymaps3-types"
@@ -30,6 +30,8 @@
         "paths": {
             "@app": ["./app/index.ts"],
             "@app/*": ["./app/*"],
+            "@api": ["./api/index.ts"],
+            "@api/*": ["./api/*"],
             "@pages": ["./pages/index.ts"],
             "@pages/*": ["./pages/*"],
             "@widgets": ["./widgets/index.ts"],

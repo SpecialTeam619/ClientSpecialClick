@@ -19,6 +19,8 @@
         /* Path aliases */
         "rootDirs": ["./"],
         "paths": {
+            "@api": ["./src/api/index.ts"],
+            "@api/*": ["./src/api/*"],
             "@app": ["./src/app/index.ts"],
             "@app/*": ["./src/app/*"],
             "@pages": ["./src/pages/index.ts"],

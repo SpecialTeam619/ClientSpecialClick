@@ -23,6 +23,7 @@
         "noUncheckedSideEffectImports": true,
         "paths": {
             "@app/*": ["./src/app/*"],
+            "@api/*": ["./src/api/*"],
             "@pages/*": ["./src/pages/*"],
             "@widgets/*": ["./src/widgets/*"],
             "@shared/*": ["./src/shared/*"]

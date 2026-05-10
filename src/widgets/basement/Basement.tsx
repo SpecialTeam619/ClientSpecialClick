@@ -1,15 +1,36 @@
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styles from './Basement.module.css';
 import icon from './img/icon.png';
 import { Button } from '@shared/ui';
 
-export default function Basement({ to, isActive=true }: { to: string, isActive?: boolean }) {
+export default function Basement({
+    to,
+    isActive = true,
+    placeholder,
+    onForward,
+}: {
+    to: string;
+    isActive?: boolean;
+    placeholder?: string;
+    onForward?: () => void | Promise<void | boolean> | boolean;
+}) {
+    const navigate = useNavigate();
+
     return (
         <div className={styles.basement}>
-            <Link to={-1} className={styles.link}>
+            <button
+                type="button"
+                className={styles.link}
+                onClick={() => navigate(-1)}
+            >
                 <img src={icon} />
-            </Link>
-            <Button to={to} active={isActive}/>
+            </button>
+            <Button
+                to={to}
+                active={isActive}
+                text={placeholder}
+                onClick={onForward}
+            />
         </div>
     );
 }

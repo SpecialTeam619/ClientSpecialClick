@@ -7,6 +7,7 @@ export default defineConfig({
     plugins: [react()],
     resolve: {
         alias: {
+            '@api': path.resolve(__dirname, './src/api'),
             '@app': path.resolve(__dirname, './src/app'),
             '@pages': path.resolve(__dirname, './src/pages'),
             '@widgets': path.resolve(__dirname, './src/widgets'),
@@ -14,8 +15,8 @@ export default defineConfig({
         },
     },
     server: {
-        host: '0.0.0.0', // Позволяет подключаться с других устройств в локальной сети
+        host: '0.0.0.0',
         port: 3000,
-        strictPort: false, // Если порт занят, попробует следующий
+        strictPort: false,
     },
 });

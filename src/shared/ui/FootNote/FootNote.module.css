@@ -4,6 +4,7 @@
     color: var(--foot-color);
     width: 90svw;
     text-align: center;
+    margin: 7px;
 }
 
 .footNote a {

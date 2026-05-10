@@ -1,12 +1,6 @@
 import type { ReactNode } from 'react';
-import styles from "./FootNote.module.css";
+import styles from './FootNote.module.css';
 
-export default function FootNote({ children }: {
-    children: ReactNode
-}) {
-    return (
-        <p className={styles.footNote}>
-            {children}
-        </p>
-    );
+export default function FootNote({ children }: { children?: ReactNode }) {
+    return <div className={styles.footNote}>{children}</div>;
 }

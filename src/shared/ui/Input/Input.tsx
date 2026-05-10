@@ -1,7 +1,13 @@
+import React from 'react';
 import styles from './Input.module.css';
 
-export default function Input({...args}: React.InputHTMLAttributes<HTMLInputElement>) {
-    return (
-        <input className={styles.input} {...args}/>
-    );
-}
+const Input = React.forwardRef<
+    HTMLInputElement,
+    React.InputHTMLAttributes<HTMLInputElement>
+>(function Input({ ...args }, ref) {
+    return <input ref={ref} className={styles.input} {...args} />;
+});
+
+Input.displayName = 'Input';
+
+export default Input;
