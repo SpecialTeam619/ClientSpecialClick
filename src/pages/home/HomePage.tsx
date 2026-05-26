@@ -1,0 +1,27 @@
+import styles from '../homepage/HomePage.module.css';
+import { FootNote, Logo, Button } from '@shared/ui';
+import { Link } from 'react-router-dom';
+
+function HomePage() {
+    return (
+        <>
+            <div className={styles.pageSeparator}>
+                <h4 className={styles.logoText}>
+                    аренда спецтехники рядом с вами
+                </h4>
+                <Logo />
+            </div>
+            <div className={styles.pageSeparator}>
+                <FootNote>
+                    {'Уже есть аккаунт? '}
+                    <Link to="/login" className={styles.login}>
+                        {'Войти'}
+                    </Link>
+                </FootNote>
+                <Button text="Начать" to="/register/name" />
+            </div>
+        </>
+    );
+}
+
+export default HomePage;

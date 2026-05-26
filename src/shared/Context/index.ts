@@ -1,1 +1,1 @@
-export { RegistrationProvider, useRegistration } from './Registration';
+export { RegistrationProvider, useRegistration } from '@features/registration';

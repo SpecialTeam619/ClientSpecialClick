@@ -31,7 +31,6 @@ export default async function register(
 
         if (contentType.includes('application/json')) {
             const data = (await res.json()) as { accessToken?: string };
-            console.log('[API] Ответ JSON:', data);
             return { accessToken: data.accessToken || '' };
         }
 

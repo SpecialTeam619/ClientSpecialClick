@@ -1,1 +1,1 @@
-export { default as FilterPage } from './main';
+export { default } from './main';

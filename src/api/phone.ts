@@ -1,4 +1,3 @@
-// src/api/phone.ts
 import { apiFetch, getApiUrl } from './client';
 
 export type CheckPhoneResponse = {
@@ -26,7 +25,6 @@ export default async function checkPhoneExists(
 
         if (contentType.includes('application/json')) {
             const data = (await res.json()) as { exists?: boolean };
-            console.log('[API] Ответ JSON:', data);
             return { exists: Boolean(data.exists) };
         }
 

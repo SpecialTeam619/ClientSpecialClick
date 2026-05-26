@@ -1,11 +1,5 @@
-import styles from './Login.module.css';
-
 function Login() {
-    return (
-        <>
-        
-        </>
-    );
+    return <></>;
 }
 
 export default Login;

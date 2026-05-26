@@ -1,1 +1,1 @@
-export { default as ChoiseCards } from './ChoiseCards';
+export { default } from './ChoiceCards';

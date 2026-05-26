@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>my-app</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manrope:wght@200..800&display=swap"
+            rel="stylesheet"
+        />
+        <script>
+            const enableYandexMaps = 'false' === 'true';
+
+            if (enableYandexMaps) {
+                const yandexScript = document.createElement('script');
+
+                yandexScript.src =
+                    'https://api-maps.yandex.ru/v3/?apikey=5beeeeee-c2a1-4d70-a1ad-6643bc33bd57&lang=en_US';
+                yandexScript.type = 'text/javascript';
+                yandexScript.async = true;
+
+                document.head.appendChild(yandexScript);
+            } else {
+                console.log(
+                    'Yandex Maps API is disabled. To enable it, set VITE_ENABLE_YANDEX_MAPS to true in your environment variables.',
+                );
+            }
+        </script>
+      <script type="module" crossorigin src="/assets/index-CW3pfwaQ.js"></script>
+      <link rel="stylesheet" crossorigin href="/assets/index-DSsTJXhh.css">
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
+</html>

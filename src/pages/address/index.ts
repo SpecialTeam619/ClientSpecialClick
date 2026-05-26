@@ -1,1 +1,1 @@
-export { default as AdressPage } from './main';
+export { default } from './Address';

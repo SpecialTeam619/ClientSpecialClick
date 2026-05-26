@@ -1,6 +1,6 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, type ReactNode } from 'react';
 import register from '@api/registration';
-import { ACCESS_TOKEN_KEY } from '@api/client';
+import { ACCESS_TOKEN_KEY } from '@api';
 
 interface RegistrationData {
     phone: string;
@@ -23,11 +23,7 @@ const RegistrationContext = createContext<{
     submitRegistration: () => Promise<void>;
 } | null>(null);
 
-export function RegistrationProvider({
-    children,
-}: {
-    children: React.ReactNode;
-}) {
+export function RegistrationProvider({ children }: { children: ReactNode }) {
     const [data, setData] = useState<RegistrationData>(() => {
         const saved = localStorage.getItem('registrationData');
 
@@ -64,7 +60,7 @@ export function RegistrationProvider({
         }
 
         const response = await register(
-            `+7${data.phone}`,
+            data.phone,
             data.password,
             data.role,
             data.name,

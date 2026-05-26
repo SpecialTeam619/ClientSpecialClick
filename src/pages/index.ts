@@ -1,8 +1,8 @@
-export { default as HomePage } from './homepage';
+export { default as HomePage } from './home';
 export { default as Login } from './login';
 export { default as RegisterPhoneNumber } from './register/phone-number';
 export { default as RegisterSmsCode } from './register/sms-code';
 export { default as RegisterRole } from './register/role';
-export { ChoiseCards } from './catalog';
-export { FilterPage } from './filter';
-export { AdressPage } from './address';
+export { default as ChoiceCards } from './catalog';
+export { default as FilterPage } from './filter';
+export { default as AddressPage } from './address';
