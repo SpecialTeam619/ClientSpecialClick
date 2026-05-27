@@ -6,6 +6,7 @@
     align-items: center;
     height: 50dvh;
     width: 100svw;
+    margin-top: 6svh
 }
 
 .title {
@@ -29,15 +30,15 @@
     transition: border 0.2s ease;
     position: relative;
     display: flex;
-    flex-direction: column;
-    align-items: start;
+    flex-direction: row;
+    align-items: center;
     justify-content: center;
     height: auto;
     width: 80svw;
     padding: 20px;
     border-radius: 20px;
-    background-color: var(--quaternary-color);
-    border: 1.5px solid var(--secondary-color);
+    /* background-color: var(--quaternary-color); */
+    border: 2px solid #D8DADC;
     will-change: transform;
     overflow: hidden;
     margin: 0.5rem;
@@ -45,9 +46,7 @@
 }
 
 .box.active {
-    border: 1.5px solid transparent;
-    background-color: var(--tertiary-color);
-    color: white;
+    border: 2px solid #1A1A1A;
 }
 
 .box h3,
@@ -59,4 +58,18 @@
 .box p {
     font-size: 15px;
     font-weight: Medium;
+    color: #5F5F5F;
+}
+
+.box input[type="radio"] {
+    margin-left: 1rem;
+    accent-color: #1A1A1A;
+    width: 1rem;
+}
+
+.text_box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
 }

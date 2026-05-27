@@ -1,4 +1,4 @@
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import type { MouseEvent } from 'react';
 import styles from './Button.module.css';
 
@@ -9,39 +9,36 @@ export default function Button({
     onClick,
 }: {
     text?: string;
-    to: string;
+    to?: string;
     active?: boolean;
     onClick?: (
-        event: MouseEvent<HTMLAnchorElement>,
+        event: MouseEvent<HTMLButtonElement>,
     ) => void | Promise<void | boolean> | boolean;
 }) {
     const navigate = useNavigate();
 
-    const handleClick = async (event: MouseEvent<HTMLAnchorElement>) => {
+    const handleClick = async (event: MouseEvent<HTMLButtonElement>) => {
         if (!active) {
             event.preventDefault();
             return;
         }
 
-        if (!onClick) {
-            return;
-        }
-
         event.preventDefault();
-        const result = await onClick(event);
+        const result = onClick ? await onClick(event) : undefined;
 
         if (result !== false) {
-            navigate(to);
+            if (to) {
+                navigate(to);
+            }
         }
     };
 
     return (
-        <Link
+        <button
             className={`${styles.button} ${active ? styles.active : ''}`}
-            to={to}
             onClick={handleClick}
         >
             <h3>{text ? text : 'Продолжить'}</h3>
-        </Link>
+        </button>
     );
 }

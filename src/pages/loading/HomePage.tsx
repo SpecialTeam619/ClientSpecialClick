@@ -7,16 +7,16 @@ function HomePage() {
         <>
             <div className={styles.pageSeparator}>
                 <h4 className={styles.logoText}>
-                    аренда спецтехники рядом с вами
+                    Аренда спецтехники — <span style={{ fontWeight: 'bold' }}>это просто</span>
                 </h4>
-                <Logo />
+                <Logo direction="vertically" />
             </div>
             <div className={styles.pageSeparator}>
                 <FootNote>
-                    {'Уже есть аккаунт? '}
-                    <Link to="/login" className={styles.login}>
-                        {'Войти'}
-                    </Link>
+                    При входе и регистрации вы соглашаетесь с
+                    <Link to="/privacy">политика обработки персональных данных</Link> 
+                    и
+                    <Link to="/terms">пользовательским соглашением</Link>
                 </FootNote>
                 <Button text="Начать" to="/register/name" />
             </div>

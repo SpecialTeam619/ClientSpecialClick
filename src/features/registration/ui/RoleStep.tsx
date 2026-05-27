@@ -1,12 +1,21 @@
+import { useNavigate } from 'react-router-dom';
 import { Header, Basement } from '@widgets';
 import styles from '../../../pages/register/role/Register.module.css';
 import { useState } from 'react';
 import { EmptyBlock } from '@shared/ui';
 import { useRegistration } from '../model/RegistrationContext';
+import customerIcon from '@shared/assets/customer-icon.svg';
+import lessorIcon from '@shared/assets/lessor-icon.svg';
+import checkPhoneExists from '@api/phone';
+import login from '@api/login';
+import { ACCESS_TOKEN_KEY } from '@api';
 
 function RoleStep() {
-    const { data, updateData, submitRegistration } = useRegistration();
+    const { data, updateData, clearData } =
+        useRegistration();
     const [selectedRole, setSelectedRole] = useState(data.role || 'CUSTOMER');
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     function handleRoleChange(role: string) {
         setSelectedRole(role);
@@ -14,21 +23,39 @@ function RoleStep() {
     }
 
     async function handleSubmit() {
-        try {
-            await submitRegistration();
-        } catch (error) {
-            console.error('Не удалось завершить регистрацию:', error);
-            return false;
+        setError('');
+
+        const phoneCheck = await checkPhoneExists(data.phone);
+
+        if (phoneCheck.exists) {
+            try {
+                const response = await login(data.phone, data.password);
+
+                if (!response.access_token) {
+                    throw new Error('Не удалось получить токен');
+                }
+
+                localStorage.setItem(
+                    ACCESS_TOKEN_KEY,
+                    response.access_token,
+                );
+                clearData();
+                navigate('/home');
+                return;
+            } catch {
+                setError('Неверный номер телефона или пароль');
+                return false;
+            }
+        }  else {
+            navigate('/register/name');
         }
     }
-
-    const isReady = Boolean(data.phone && data.password && selectedRole);
 
     return (
         <>
             <Header />
             <div className={styles.main}>
-                <h1>Кто вы?</h1>
+                <h1>Выбор роли</h1>
                 <div className={styles.fieldsetRole}>
                     <label
                         className={`${styles.box} ${selectedRole === 'CUSTOMER' ? styles.active : ''}`}
@@ -41,8 +68,17 @@ function RoleStep() {
                             onChange={() => handleRoleChange('CUSTOMER')}
                             style={{ display: 'none' }}
                         />
-                        <h3>Я заказчик</h3>
-                        <p>Мне нужна спецтехника</p>
+                        <img src={customerIcon} alt="Заказчик" />
+                        <div className={styles.text_box}>
+                            <h3>Я заказчик</h3>
+                            <p>Мне нужна спецтехника</p>
+                        </div>
+                        <input
+                            type="radio"
+                            name="choice"
+                            value="2"
+                            checked={selectedRole === 'CUSTOMER'}
+                        />
                     </label>
 
                     <label
@@ -56,15 +92,29 @@ function RoleStep() {
                             onChange={() => handleRoleChange('LESSOR')}
                             style={{ display: 'none' }}
                         />
-                        <h3>Я арендoдатель</h3>
-                        <p>У меня есть спецтехника</p>
+                        <img src={lessorIcon} alt="Арендodатель" />
+                        <div className={styles.text_box}>
+                            <h3>Я арендoдатель</h3>
+                            <p>У меня есть спецтехника</p>
+                        </div>
+                        <input
+                            type="radio"
+                            name="choice"
+                            value="2"
+                            checked={selectedRole === 'LESSOR'}
+                        />
                     </label>
                 </div>
+                {error ? (
+                    <div style={{ color: '#b00020', marginTop: '1rem' }}>
+                        {error}
+                    </div>
+                ) : null}
             </div>
             <EmptyBlock />
             <Basement
-                to="/address"
-                isActive={isReady}
+                // to="/address"
+                // isActive={isReady}
                 onForward={handleSubmit}
             />
         </>

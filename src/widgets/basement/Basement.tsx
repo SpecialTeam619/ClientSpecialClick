@@ -9,7 +9,7 @@ export default function Basement({
     placeholder,
     onForward,
 }: {
-    to: string;
+    to?: string;
     isActive?: boolean;
     placeholder?: string;
     onForward?: () => void | Promise<void | boolean> | boolean;

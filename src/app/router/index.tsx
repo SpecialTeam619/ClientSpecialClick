@@ -1,8 +1,8 @@
 import { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-const HomePage = lazy(() => import('@pages/home'));
-const Login = lazy(() => import('@pages/login'));
+const IntroductoryPage = lazy(() => import('@pages/IntroductoryPage'));
+const Login = lazy(() => import('@pages/login/Login'));
 const RegisterPhoneNumber = lazy(() => import('@pages/register/phone-number'));
 const RegisterName = lazy(() => import('@pages/register/name'));
 const RegisterRole = lazy(() => import('@pages/register/role'));
@@ -15,7 +15,8 @@ const AddressPage = lazy(() => import('@pages/address'));
 export default function AppRouter() {
     return (
         <Routes>
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<FilterPage />} />
+            <Route path="/introductory" element={<IntroductoryPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register/phone" element={<RegisterPhoneNumber />} />
             <Route path="/register/name" element={<RegisterName />} />
@@ -23,7 +24,7 @@ export default function AppRouter() {
             <Route path="/register/password" element={<RegisterPassword />} />
             <Route path="/register/sms-code" element={<RegisterSmsCode />} />
             <Route path="/cards" element={<ChoiceCards />} />
-            <Route path="/cards/filter" element={<FilterPage />} />
+            {/* <Route path="/cards/filter" element={<FilterPage />} /> */}
             <Route path="/address" element={<AddressPage />} />
         </Routes>
     );

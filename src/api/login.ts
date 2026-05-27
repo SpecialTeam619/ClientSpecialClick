@@ -1,17 +1,14 @@
 import { apiFetch, getApiUrl } from './client';
 
-export type RegisterResponse = {
+export type LoginResponse = {
     access_token: string;
 };
 
-export default async function register(
+export default async function login(
     phone: string,
     password: string,
-    role: string,
-    name: string,
-): Promise<RegisterResponse> {
-    const url = new URL(getApiUrl('/auth/register/'));
-    // url.searchParams.append('phone', phone);
+): Promise<LoginResponse> {
+    const url = new URL(getApiUrl('/auth/login/'));
 
     try {
         const res = await apiFetch(url.toString(), {
@@ -19,7 +16,7 @@ export default async function register(
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ phone, password, role, name }),
+            body: JSON.stringify({ phone, password}),
         });
 
         if (!res.ok) {
@@ -38,7 +35,7 @@ export default async function register(
     } catch (err) {
         const errorMessage = err instanceof Error ? err.message : String(err);
         console.error(
-            '[API] Ошибка при регистрации пользователя:',
+            '[API] Ошибка при входе в систему:',
             errorMessage,
         );
 

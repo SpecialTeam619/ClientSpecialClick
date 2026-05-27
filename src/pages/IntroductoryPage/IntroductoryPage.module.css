@@ -1,0 +1,68 @@
+.main {
+    width: 100svw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logoText {
+    line-height: 1;
+    font-weight: 400;
+    line-height: 160%;
+}
+
+.login {
+    color: var(--tertiary-color);
+}
+
+.customSlide {
+    background-size: cover;
+    border-radius: 1.8rem;
+    padding: 1.5rem;
+    height: 50svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 0.8rem;
+    align-content: center;
+    color: #ffffff;
+}
+
+.slide1 {
+    background: 
+        linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8)),
+        url('../../shared/assets/Vehicle 1.png');
+}
+
+.slide2 {
+    background: 
+        linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8)),
+        url('../../shared/assets/Vehicle 2.png');
+}
+
+.slide3 {
+    background: 
+        linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8)),
+        url('../../shared/assets/Vehicle 3.png');
+}
+
+.customSlide h3 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.customSlide p {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+@media (min-width: 1200px) {
+    .pageSeparator {
+        height: 20dvh;
+        width: 100svw;
+        display: flex;
+        align-items: center;
+        flex-direction: column-reverse;
+    }
+}

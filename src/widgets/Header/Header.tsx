@@ -5,7 +5,7 @@ export default function Header() {
     return (
         <header className={styles.header}>
             <div>
-                <Logo/>
+                <Logo style={{height: '2rem', width: 'auto'}}/>
             </div>
         </header>
     );
