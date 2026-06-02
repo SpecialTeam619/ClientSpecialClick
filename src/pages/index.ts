@@ -4,5 +4,7 @@ export { default as RegisterPhoneNumber } from './register/phone-number';
 export { default as RegisterSmsCode } from './register/sms-code';
 export { default as RegisterRole } from './register/role';
 export { default as ChoiceCards } from './catalog';
-export { default as FilterPage } from './filter';
+export { default as FilterPage } from './home';
 export { default as AddressPage } from './address';
+export { default as HistoryPage } from './history';
+export { default as ProfilePage } from './profile';

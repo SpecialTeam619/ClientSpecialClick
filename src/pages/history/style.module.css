@@ -1,0 +1,16 @@
+.main {
+    min-height: 100svh;
+    padding: 2rem 1rem 1rem;
+}
+
+.main h1 {
+    margin: 0;
+}
+
+.main p {
+    color: var(--foot-color);
+}
+
+.basementIndent {
+    height: 10svh;
+}

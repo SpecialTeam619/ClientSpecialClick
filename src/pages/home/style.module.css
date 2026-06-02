@@ -36,7 +36,7 @@
     height: auto;
     border-radius: 20px;
     background-color: var(--quaternary-color);
-    border: 2px solid var(--secondary-color);
+    border: 2px solid #D8DADC;
     will-change: transform;
     overflow: hidden;
     margin: 0.5rem;

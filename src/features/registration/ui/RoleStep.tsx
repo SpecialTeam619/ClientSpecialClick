@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { Header, Basement } from '@widgets';
 import styles from '../../../pages/register/role/Register.module.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { EmptyBlock } from '@shared/ui';
 import { useRegistration } from '../model/RegistrationContext';
 import customerIcon from '@shared/assets/customer-icon.svg';
@@ -11,11 +11,15 @@ import login from '@api/login';
 import { ACCESS_TOKEN_KEY } from '@api';
 
 function RoleStep() {
-    const { data, updateData, clearData } =
-        useRegistration();
+    const { data, updateData, clearData } = useRegistration();
     const [selectedRole, setSelectedRole] = useState(data.role || 'CUSTOMER');
     const [error, setError] = useState('');
     const navigate = useNavigate();
+
+    useEffect(() => {
+        setSelectedRole('CUSTOMER');
+        updateData({ role: 'CUSTOMER' });
+    }, []);
 
     function handleRoleChange(role: string) {
         setSelectedRole(role);
@@ -35,18 +39,15 @@ function RoleStep() {
                     throw new Error('Не удалось получить токен');
                 }
 
-                localStorage.setItem(
-                    ACCESS_TOKEN_KEY,
-                    response.access_token,
-                );
+                localStorage.setItem(ACCESS_TOKEN_KEY, response.access_token);
                 clearData();
-                navigate('/home');
+                navigate('/');
                 return;
             } catch {
                 setError('Неверный номер телефона или пароль');
                 return false;
             }
-        }  else {
+        } else {
             navigate('/register/name');
         }
     }

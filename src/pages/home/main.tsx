@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styles from './style.module.css';
 import technick from './img/technic.png';
-import { Basement } from '@widgets';
+import { FilterBasement } from '@widgets';
 
 export default function FilterPage() {
     const [selectedRole, setSelectedRole] = useState(-1);
@@ -49,7 +49,7 @@ export default function FilterPage() {
                 ))}
             </div>
             <div className={styles.basementIndent}></div>
-            <Basement to="/cards" />
+            <FilterBasement />
         </>
     );
 }

@@ -52,7 +52,7 @@ function NameStep() {
 
                 localStorage.setItem(ACCESS_TOKEN_KEY, response.access_token);
                 clearData();
-                navigate('/home');
+                navigate('/');
                 return;
             } catch {
                 setError('Ошибка регистрации. Пожалуйста, попробуйте снова.');
