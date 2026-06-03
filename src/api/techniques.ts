@@ -6,7 +6,15 @@ export type TechniqueTypeInfo = {
     id?: string;
     code?: string;
     name?: string;
+    description?: string | null;
     photoUrl?: string | null;
+};
+
+export type TechniqueOwner = {
+    id: string;
+    name: string;
+    phone: string;
+    role: string;
 };
 
 export type Technique = {
@@ -20,6 +28,7 @@ export type Technique = {
     updatedAt?: string;
     status: TechniqueStatus;
     techniqueType?: TechniqueTypeInfo;
+    owner?: TechniqueOwner;
 };
 
 export type PaginatedResponse<T> = {
@@ -41,9 +50,24 @@ export type CreateTechniquePayload = {
     property: string[];
 };
 
+export type UpdateTechniquePayload = Partial<CreateTechniquePayload>;
+
+export async function getTechnique(id: string): Promise<Technique> {
+    const url = new URL(getApiUrl(`/techniques/${id}`));
+    const res = await apiFetch(url.toString(), { method: 'GET' });
+
+    if (!res.ok) {
+        const errorText = await res.text();
+        throw new Error(`HTTP ${res.status}: ${errorText}`);
+    }
+
+    return (await res.json()) as Technique;
+}
+
 export async function getTechniques(params?: {
     page?: number;
     limit?: number;
+    techniqueTypeId?: string;
 }): Promise<PaginatedResponse<Technique>> {
     const url = new URL(getApiUrl('/techniques/'));
 
@@ -53,6 +77,10 @@ export async function getTechniques(params?: {
 
     if (typeof params?.limit !== 'undefined') {
         url.searchParams.set('limit', String(params.limit));
+    }
+
+    if (typeof params?.techniqueTypeId !== 'undefined') {
+        url.searchParams.set('techniqueTypeId', params.techniqueTypeId);
     }
 
     const res = await apiFetch(url.toString(), { method: 'GET' });
@@ -76,6 +104,39 @@ export async function createTechnique(
         },
         body: JSON.stringify(payload),
     });
+
+    if (!res.ok) {
+        const errorText = await res.text();
+        throw new Error(`HTTP ${res.status}: ${errorText}`);
+    }
+
+    return (await res.json()) as Technique;
+}
+
+export async function updateTechnique(
+    id: string,
+    payload: UpdateTechniquePayload,
+): Promise<Technique> {
+    const url = new URL(getApiUrl(`/techniques/${id}`));
+    const res = await apiFetch(url.toString(), {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+    });
+
+    if (!res.ok) {
+        const errorText = await res.text();
+        throw new Error(`HTTP ${res.status}: ${errorText}`);
+    }
+
+    return (await res.json()) as Technique;
+}
+
+export async function deleteTechnique(id: string): Promise<Technique> {
+    const url = new URL(getApiUrl(`/techniques/${id}`));
+    const res = await apiFetch(url.toString(), { method: 'DELETE' });
 
     if (!res.ok) {
         const errorText = await res.text();

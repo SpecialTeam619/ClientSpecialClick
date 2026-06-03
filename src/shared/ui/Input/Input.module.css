@@ -10,8 +10,9 @@
     font-weight: bold;
     text-indent: 22px;
     margin-top: 1rem;
-    mask-image: paint(smooth-corners);
-    border-radius: 20px;
+    border-radius: var(--border-radius, 20px);
+    box-sizing: border-box;
+    min-height: 3.5rem;
 }
 
 @media (min-width: 1200px) {

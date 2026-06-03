@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import styles from './FilterBasement.module.css';
+import styles from './HomeBasement.module.css';
 import homeIcon from '@shared/assets/Home.svg';
 import ordersIcon from '@shared/assets/Orders.svg';
 import profileIcon from '@shared/assets/Profile.svg';
@@ -16,7 +16,7 @@ const navItems: NavItem[] = [
     { label: 'Профиль', img: profileIcon, to: '/profile' },
 ];
 
-export default function FilterBasement() {
+export default function HomeBasement() {
     const navigate = useNavigate();
 
     return (

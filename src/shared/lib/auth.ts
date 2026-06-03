@@ -1,4 +1,5 @@
 import { ACCESS_TOKEN_KEY } from '@api';
+import Cookies from 'js-cookie';
 
 type JwtPayload = {
     sub?: string;
@@ -13,12 +14,8 @@ function decodeBase64Url(value: string): string {
     return atob(padded);
 }
 
-export function getStoredAccessToken(): string | null {
-    if (typeof window === 'undefined') {
-        return null;
-    }
-
-    return window.localStorage.getItem(ACCESS_TOKEN_KEY);
+export function getStoredAccessToken(): string | undefined {
+    return Cookies.get(ACCESS_TOKEN_KEY);
 }
 
 export function getDecodedJwtPayload(): JwtPayload | null {
@@ -54,9 +51,6 @@ export function getStoredUserPhone(): string | null {
 }
 
 export function clearStoredAuth(): void {
-    if (typeof window === 'undefined') {
-        return;
-    }
-
+    Cookies.remove(ACCESS_TOKEN_KEY);
     window.localStorage.removeItem(ACCESS_TOKEN_KEY);
 }

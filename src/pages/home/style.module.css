@@ -1,3 +1,257 @@
+.pageTitle {
+    margin: 1rem auto 0.5rem;
+    width: 90svw;
+    text-align: start;
+    color: var(--foot-color);
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.lessorHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90svw;
+    margin: 0 auto;
+    gap: 0.5rem;
+}
+
+.lessorHeader .pageTitle {
+    margin: 1rem 0 0.5rem;
+    width: auto;
+    flex: 1;
+}
+
+.addButton {
+    border: none;
+    border-radius: 12px;
+    background-color: var(--tertiary-color);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 14px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.editButton {
+    margin-top: 0.75rem;
+    border: none;
+    border-radius: 12px;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 14px;
+    cursor: pointer;
+}
+
+.emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    text-align: center;
+}
+
+.typeLabel {
+    color: var(--foot-color);
+    font-size: 14px;
+}
+
+.modalOverlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.45);
+}
+
+.modal {
+    position: relative;
+    width: 100%;
+    max-height: 90dvh;
+    overflow-y: auto;
+    background: var(--primary-color);
+    border-radius: 20px 20px 0 0;
+    padding: 1.25rem 1.25rem 2rem;
+    box-sizing: border-box;
+}
+
+.modal h2 {
+    margin: 0 2rem 0.75rem 0;
+    font-size: 20px;
+}
+
+.modalClose {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: var(--quaternary-color);
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.formLabel {
+    width: 90svw;
+    margin-top: 0.75rem;
+    color: var(--foot-color);
+    font-size: 14px;
+    text-align: start;
+}
+
+.select,
+.textarea {
+    width: 90svw;
+    margin-top: 0.5rem;
+    border: 2px solid var(--secondary-color);
+    border-radius: 20px;
+    background: var(--quaternary-color);
+    color: black;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    box-sizing: border-box;
+}
+
+.select {
+    height: 3.5rem;
+    padding: 0 22px;
+    font-weight: 700;
+}
+
+.textarea {
+    min-height: 120px;
+    padding: 16px 22px;
+    resize: vertical;
+}
+
+.propertiesHeader {
+    width: 90svw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.75rem;
+}
+
+.propertiesHeader .formLabel {
+    width: auto;
+    margin-top: 0;
+}
+
+.addPropertyButton {
+    border: none;
+    background: transparent;
+    color: var(--tertiary-color);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+}
+
+.propertyRow {
+    width: 90svw;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.propertyInputWrap {
+    flex: 1;
+    min-width: 0;
+}
+
+.propertyInputWrap input {
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.removePropertyButton {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--quaternary-color);
+    color: var(--foot-color);
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.modalActions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 90svw;
+    margin-top: 1rem;
+}
+
+.saveButton,
+.cancelButton,
+.deleteButton {
+    min-height: 48px;
+    border: none;
+    border-radius: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.saveButton {
+    background: var(--secondary-color);
+    color: var(--primary-color);
+}
+
+.cancelButton {
+    background: var(--quaternary-color);
+    color: var(--foot-color);
+}
+
+.deleteButton {
+    background: #fdecec;
+    color: #c62828;
+}
+
+.confirmDelete {
+    width: 90%;
+}
+
+.saveButton:disabled,
+.cancelButton:disabled,
+.deleteButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.deleteConfirm {
+    width: 90svw;
+    margin-top: 1rem;
+    padding: 1rem;
+    border: 2px solid #f3c6c6;
+    border-radius: 16px;
+    background: #fff7f7;
+    box-sizing: border-box;
+}
+
+.deleteConfirm p {
+    margin: 0;
+    color: #c62828;
+}
+
+.error {
+    width: 90svw;
+    margin-top: 1rem;
+    color: #c62828;
+    font-size: 14px;
+}
+
 /* Styles for Register page */
 .main {
     display: flex;

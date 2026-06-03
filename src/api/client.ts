@@ -1,5 +1,18 @@
+import Cookies from 'js-cookie';
+
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
 export const ACCESS_TOKEN_KEY = 'accessToken';
+
+function getStoredAccessToken(): string | null {
+    if (typeof window === 'undefined') {
+        return null;
+    }
+
+    return (
+        Cookies.get(ACCESS_TOKEN_KEY) ??
+        window.localStorage.getItem(ACCESS_TOKEN_KEY)
+    );
+}
 
 type ApiFetchOptions = RequestInit & {
     auth?: boolean;
@@ -17,10 +30,7 @@ export async function apiFetch(
     const mergedHeaders = new Headers(headers);
 
     if (auth && !mergedHeaders.has('Authorization')) {
-        const token =
-            typeof window !== 'undefined'
-                ? window.localStorage.getItem(ACCESS_TOKEN_KEY)
-                : null;
+        const token = getStoredAccessToken();
 
         if (token) {
             mergedHeaders.set('Authorization', `Bearer ${token}`);

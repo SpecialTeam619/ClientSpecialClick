@@ -1,0 +1,133 @@
+.main {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: center;
+    width: 100svw;
+    min-height: 50dvh;
+    padding-bottom: 2rem;
+}
+
+.main h1 {
+    width: 90svw;
+    margin: 1rem 0 0.5rem;
+    text-align: start;
+    color: var(--foot-color);
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.label {
+    width: 90svw;
+    margin-top: 0.75rem;
+    text-align: start;
+    color: var(--foot-color);
+    font-size: 14px;
+}
+
+.select,
+.textarea {
+    background-color: var(--quaternary-color);
+    color: black;
+    border: 2px solid var(--secondary-color);
+    width: 90svw;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+    margin-top: 0.5rem;
+    border-radius: 20px;
+    box-sizing: border-box;
+}
+
+.select {
+    line-height: 3.5rem;
+    height: 3.5rem;
+    padding: 0 22px;
+    appearance: none;
+}
+
+.textarea {
+    padding: 16px 22px;
+    font-weight: 500;
+    resize: vertical;
+    min-height: 120px;
+}
+
+.propertiesHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90svw;
+    margin-top: 0.75rem;
+}
+
+.propertiesHeader .label {
+    width: auto;
+    margin-top: 0;
+}
+
+.addPropertyButton {
+    border: none;
+    background: transparent;
+    color: var(--tertiary-color);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+}
+
+.propertyRow {
+    width: 90svw;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.propertyInputWrap {
+    flex: 1;
+    min-width: 0;
+}
+
+.propertyInputWrap input {
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.removePropertyButton {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--quaternary-color);
+    color: var(--foot-color);
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.error {
+    width: 90svw;
+    margin-top: 1rem;
+    color: #c62828;
+    font-size: 14px;
+    text-align: start;
+}
+
+.hint {
+    width: 90svw;
+    color: var(--foot-color);
+    text-align: start;
+}
+
+.linkButton {
+    margin-top: 1rem;
+    border: none;
+    border-radius: 12px;
+    background-color: var(--tertiary-color);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 16px;
+    cursor: pointer;
+}

@@ -15,6 +15,7 @@ const AddressPage = lazy(() => import('@pages/address'));
 const HistoryPage = lazy(() => import('@pages/history'));
 const ProfilePage = lazy(() => import('@pages/profile'));
 const CreateTechniquePage = lazy(() => import('@pages/techinque/create'));
+const FindTechniquesPage = lazy(() => import('@pages/techinque/find'));
 
 function hasAccessToken() {
     return Boolean(getStoredAccessToken());
@@ -62,6 +63,10 @@ export default function AppRouter() {
                 <Route
                     path="/technique/create"
                     element={<CreateTechniquePage />}
+                />
+                <Route
+                    path="/technique/find"
+                    element={<FindTechniquesPage />}
                 />
             </Route>
         </Routes>

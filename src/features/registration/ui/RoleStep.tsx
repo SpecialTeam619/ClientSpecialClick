@@ -9,6 +9,7 @@ import lessorIcon from '@shared/assets/lessor-icon.svg';
 import checkPhoneExists from '@api/phone';
 import login from '@api/login';
 import { ACCESS_TOKEN_KEY } from '@api';
+import Cookies from 'js-cookie';
 
 function RoleStep() {
     const { data, updateData, clearData } = useRegistration();
@@ -39,7 +40,7 @@ function RoleStep() {
                     throw new Error('Не удалось получить токен');
                 }
 
-                localStorage.setItem(ACCESS_TOKEN_KEY, response.access_token);
+                Cookies.set(ACCESS_TOKEN_KEY, response.access_token, {secure: true, sameSite: 'strict'});
                 clearData();
                 navigate('/');
                 return;

@@ -7,6 +7,7 @@ import { useRegistration } from '../model/RegistrationContext';
 import checkPhoneExists from '@app/router/phone';
 import register from '@app/router/registration';
 import { ACCESS_TOKEN_KEY } from '@api/client';
+import Cookies from 'js-cookie';
 
 function NameStep() {
     const { data, updateData, clearData } = useRegistration();
@@ -50,7 +51,7 @@ function NameStep() {
                     throw new Error('Не удалось получить токен');
                 }
 
-                localStorage.setItem(ACCESS_TOKEN_KEY, response.access_token);
+                Cookies.set(ACCESS_TOKEN_KEY, response.access_token, {secure: true, sameSite: 'strict'});
                 clearData();
                 navigate('/');
                 return;
