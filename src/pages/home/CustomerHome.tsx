@@ -28,7 +28,7 @@ export default function CustomerHome() {
     }, []);
 
     const handleTechniqueTypeClick = (techniqueTypeId: string) => {
-        navigate(`/technique/find?techniqueTypeId=${techniqueTypeId}`);
+        navigate(`/order/setup?techniqueTypeId=${techniqueTypeId}`);
     };
 
     return (

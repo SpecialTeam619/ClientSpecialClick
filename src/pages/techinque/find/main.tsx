@@ -5,6 +5,11 @@ import { HomeBasement } from '@widgets';
 import { getTechniques, Technique } from '@api/techniques';
 import { getTechniqueTypes, TechniqueTypeInfo } from '@api/techniques-type';
 import TechniqueDetailModal from './TechniqueDetailModal';
+import {
+    getStoredOrderSettings,
+    isOrderSettingsComplete,
+    PAYMENT_MODE_LABELS,
+} from '@shared/lib/orderSettings';
 
 export default function FindTechniques() {
     const navigate = useNavigate();
@@ -15,6 +20,8 @@ export default function FindTechniques() {
     const [selectedTechniqueId, setSelectedTechniqueId] = useState<string | null>(
         null,
     );
+    const orderSettings = getStoredOrderSettings();
+    const hasOrderSettings = isOrderSettingsComplete(orderSettings);
 
     const techniqueTypeId = searchParams.get('techniqueTypeId');
 
@@ -58,6 +65,12 @@ export default function FindTechniques() {
         navigate('/');
     };
 
+    const handleEditOrderSettings = () => {
+        navigate(
+            `/order/setup${techniqueTypeId ? `?techniqueTypeId=${techniqueTypeId}` : ''}`,
+        );
+    };
+
     const handleRented = () => {
         fetchTechniques();
     };
@@ -75,6 +88,42 @@ export default function FindTechniques() {
                         <p>{techniqueType.description}</p>
                     </div>
                 )}
+
+                <div className={styles.orderSettingsCard}>
+                    <div>
+                        <h2>Настройки заказа</h2>
+                        {hasOrderSettings ? (
+                            <>
+                                <p>
+                                    <strong>Адрес:</strong>{' '}
+                                    {orderSettings.objectAddress}
+                                </p>
+                                <p>
+                                    <strong>Дата и время:</strong>{' '}
+                                    {orderSettings.arrivalDate},{' '}
+                                    {orderSettings.arrivalTime}
+                                </p>
+                                <p>
+                                    <strong>Оплата:</strong>{' '}
+                                    {
+                                        PAYMENT_MODE_LABELS[
+                                            orderSettings.paymentMode
+                                        ]
+                                    }
+                                </p>
+                            </>
+                        ) : (
+                            <p>Заполните настройки перед арендой техники.</p>
+                        )}
+                    </div>
+                    <button
+                        type="button"
+                        className={styles.editSettingsButton}
+                        onClick={handleEditOrderSettings}
+                    >
+                        {hasOrderSettings ? 'Изменить' : 'Заполнить'}
+                    </button>
+                </div>
 
                 <div className={styles.fieldsetCard}>
                     {loading ? (
@@ -116,6 +165,8 @@ export default function FindTechniques() {
                 techniqueId={selectedTechniqueId}
                 onClose={() => setSelectedTechniqueId(null)}
                 onRented={handleRented}
+                orderSettings={orderSettings}
+                hasOrderSettings={hasOrderSettings}
             />
 
             <div className={styles.basementIndent} />

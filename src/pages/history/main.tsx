@@ -1,7 +1,13 @@
 import { HomeBasement } from '@widgets';
 import styles from './style.module.css';
 import { useEffect, useState } from 'react';
-import { getOrders, Order, OrderStatus, updateOrderStatus } from '@api/orders';
+import {
+    getOrders,
+    Order,
+    OrderStatus,
+    PaymentMode,
+    updateOrderStatus,
+} from '@api/orders';
 import { getStoredUserRole } from '@shared/lib/auth';
 
 const STATUS_LABELS: Record<Order['status'], string> = {
@@ -10,6 +16,11 @@ const STATUS_LABELS: Record<Order['status'], string> = {
     ON_THE_WAY: 'В пути',
     IN_PROGRESS: 'В работе',
     COMPLETED: 'Завершён',
+};
+
+const PAYMENT_MODE_LABELS: Record<PaymentMode, string> = {
+    [PaymentMode.SHIFT_7_PLUS_1]: 'Смена 7+1',
+    [PaymentMode.HOURLY]: 'Почасовая',
 };
 
 function formatDate(value?: string) {
@@ -193,6 +204,26 @@ export default function HistoryPage() {
                             ) : (
                                 <p>Данные о технике недоступны</p>
                             )}
+                        </section>
+
+                        <section className={styles.modalSection}>
+                            <h3>Настройки заказа</h3>
+                            <p>
+                                <strong>Адрес:</strong>{' '}
+                                {selectedOrder.objectAddress ?? '—'}
+                            </p>
+                            <p>
+                                <strong>Дата и время приезда:</strong>{' '}
+                                {formatDate(selectedOrder.arrivalAt ?? undefined)}
+                            </p>
+                            <p>
+                                <strong>Режим оплаты:</strong>{' '}
+                                {selectedOrder.paymentMode
+                                    ? PAYMENT_MODE_LABELS[
+                                          selectedOrder.paymentMode
+                                      ]
+                                    : '—'}
+                            </p>
                         </section>
 
                         <section className={styles.modalSection}>

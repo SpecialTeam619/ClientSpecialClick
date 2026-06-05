@@ -11,12 +11,21 @@ export const OrderStatus = {
 } as const;
 export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus];
 
+export const PaymentMode = {
+    SHIFT_7_PLUS_1: 'SHIFT_7_PLUS_1',
+    HOURLY: 'HOURLY',
+} as const;
+export type PaymentMode = (typeof PaymentMode)[keyof typeof PaymentMode];
+
 export type Order = {
     id: string;
     customerId: string;
     lessorId: string;
     techniqueId?: string | null;
     status: OrderStatus;
+    objectAddress?: string | null;
+    arrivalAt?: string | null;
+    paymentMode?: PaymentMode | null;
     createdAt?: string;
     updatedAt?: string;
     customer?: User;
@@ -26,6 +35,9 @@ export type Order = {
 
 export type CreateOrderPayload = {
     techniqueId: string;
+    objectAddress: string;
+    arrivalAt: string;
+    paymentMode: PaymentMode;
 };
 
 export type PaginatedOrderResponse = {

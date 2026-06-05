@@ -6,11 +6,18 @@ import { createOrder } from '@api/orders';
 import { getTechnique, type Technique } from '@api/techniques';
 import { getUser, type User as UserType } from '@api/users';
 import { getStoredUserId, getStoredUserRole } from '@shared/lib/auth';
+import {
+    getOrderArrivalIso,
+    PAYMENT_MODE_LABELS,
+    type OrderSettings,
+} from '@shared/lib/orderSettings';
 
 type TechniqueDetailModalProps = {
     techniqueId: string | null;
     onClose: () => void;
     onRented: () => void;
+    orderSettings: OrderSettings;
+    hasOrderSettings: boolean;
 };
 
 const ORDER_STATUS_LABELS: Record<string, string> = {
@@ -32,6 +39,8 @@ export default function TechniqueDetailModal({
     techniqueId,
     onClose,
     onRented,
+    orderSettings,
+    hasOrderSettings,
 }: TechniqueDetailModalProps) {
     const navigate = useNavigate();
     const currentUserId = getStoredUserId();
@@ -118,6 +127,7 @@ export default function TechniqueDetailModal({
         role === 'CUSTOMER' &&
         technique?.status === 'IN_STOCK' &&
         !isOwnTechnique &&
+        hasOrderSettings &&
         !renting;
 
     const handleRent = async () => {
@@ -130,7 +140,12 @@ export default function TechniqueDetailModal({
         setSuccess('');
 
         try {
-            const order = await createOrder({ techniqueId: technique.id });
+            const order = await createOrder({
+                techniqueId: technique.id,
+                objectAddress: orderSettings.objectAddress.trim(),
+                arrivalAt: getOrderArrivalIso(orderSettings),
+                paymentMode: orderSettings.paymentMode,
+            });
             setSuccess(
                 `Заказ создан (статус: ${ORDER_STATUS_LABELS[order.status] ?? order.status})`,
             );
@@ -234,6 +249,33 @@ export default function TechniqueDetailModal({
                             )}
                         </section>
 
+                        <section className={styles.modalSection}>
+                            <h3>Настройки заказа</h3>
+                            {hasOrderSettings ? (
+                                <>
+                                    <p>
+                                        <strong>Адрес:</strong>{' '}
+                                        {orderSettings.objectAddress}
+                                    </p>
+                                    <p>
+                                        <strong>Дата и время:</strong>{' '}
+                                        {orderSettings.arrivalDate},{' '}
+                                        {orderSettings.arrivalTime}
+                                    </p>
+                                    <p>
+                                        <strong>Оплата:</strong>{' '}
+                                        {
+                                            PAYMENT_MODE_LABELS[
+                                                orderSettings.paymentMode
+                                            ]
+                                        }
+                                    </p>
+                                </>
+                            ) : (
+                                <p>Заполните настройки заказа перед арендой.</p>
+                            )}
+                        </section>
+
                         {role !== 'CUSTOMER' && (
                             <p className={styles.modalHint}>
                                 Арендовать технику могут только заказчики
@@ -249,6 +291,12 @@ export default function TechniqueDetailModal({
                         {technique.status !== 'IN_STOCK' && !isOwnTechnique && (
                             <p className={styles.modalHint}>
                                 Техника сейчас недоступна для аренды
+                            </p>
+                        )}
+
+                        {!hasOrderSettings && (
+                            <p className={styles.modalHint}>
+                                Не заполнены адрес, дата и время заказа
                             </p>
                         )}
 
