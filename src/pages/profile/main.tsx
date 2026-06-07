@@ -154,7 +154,7 @@ export default function ProfilePage() {
                     <div className={styles.profileContainer}>
                         <h2 className={styles.profileName}>{user.name}</h2>
                         <p className={styles.profilePhone}>Телефон: {user.phone}</p>
-                        <p className={styles.profileRole}>Роль: {user.role}</p>
+                        <p className={styles.profileRole}>Роль: {user.role === 'LESSOR' ? 'Арендодатель' : 'Заказчик'}</p>
 
                         {isEditing && (
                             <div className={styles.editForm}>

@@ -15,6 +15,7 @@ const AddressPage = lazy(() => import('@pages/address'));
 const HistoryPage = lazy(() => import('@pages/history'));
 const ProfilePage = lazy(() => import('@pages/profile'));
 const OrderSetupPage = lazy(() => import('@pages/order-setup'));
+const OrderChatPage = lazy(() => import('@pages/order-chat'));
 const CreateTechniquePage = lazy(() => import('@pages/techinque/create'));
 const FindTechniquesPage = lazy(() => import('@pages/techinque/find'));
 
@@ -60,6 +61,7 @@ export default function AppRouter() {
                 <Route path="/cards" element={<ChoiceCards />} />
                 <Route path="/address" element={<AddressPage />} />
                 <Route path="/history" element={<HistoryPage />} />
+                <Route path="/orders/:orderId/chat" element={<OrderChatPage />} />
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/order/setup" element={<OrderSetupPage />} />
                 <Route

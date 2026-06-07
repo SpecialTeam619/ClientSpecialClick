@@ -33,6 +33,15 @@ export type Order = {
     technique?: Technique | null;
 };
 
+export type ChatMessage = {
+    id: string;
+    orderId: string;
+    senderId: string;
+    text: string;
+    createdAt: string;
+    sender?: User;
+};
+
 export type CreateOrderPayload = {
     techniqueId: string;
     objectAddress: string;
@@ -76,6 +85,18 @@ export async function getOrders(params?: {
     return (await res.json()) as PaginatedOrderResponse;
 }
 
+export async function getOrder(orderId: string): Promise<Order> {
+    const url = new URL(getApiUrl(`/orders/${orderId}`));
+    const res = await apiFetch(url.toString(), { method: 'GET' });
+
+    if (!res.ok) {
+        const errorText = await res.text();
+        throw new Error(`HTTP ${res.status}: ${errorText}`);
+    }
+
+    return (await res.json()) as Order;
+}
+
 export async function createOrder(payload: CreateOrderPayload): Promise<Order> {
     const url = new URL(getApiUrl('/orders/'));
     const res = await apiFetch(url.toString(), {
@@ -113,4 +134,39 @@ export async function updateOrderStatus(
     }
 
     return (await res.json()) as Order;
+}
+
+export async function getOrderMessages(
+    orderId: string,
+): Promise<ChatMessage[]> {
+    const url = new URL(getApiUrl(`/orders/${orderId}/messages`));
+    const res = await apiFetch(url.toString(), { method: 'GET' });
+
+    if (!res.ok) {
+        const errorText = await res.text();
+        throw new Error(`HTTP ${res.status}: ${errorText}`);
+    }
+
+    return (await res.json()) as ChatMessage[];
+}
+
+export async function sendOrderMessage(
+    orderId: string,
+    text: string,
+): Promise<ChatMessage> {
+    const url = new URL(getApiUrl(`/orders/${orderId}/messages`));
+    const res = await apiFetch(url.toString(), {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ text }),
+    });
+
+    if (!res.ok) {
+        const errorText = await res.text();
+        throw new Error(`HTTP ${res.status}: ${errorText}`);
+    }
+
+    return (await res.json()) as ChatMessage;
 }

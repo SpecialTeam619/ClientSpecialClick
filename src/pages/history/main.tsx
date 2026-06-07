@@ -1,13 +1,14 @@
 import { HomeBasement } from '@widgets';
 import styles from './style.module.css';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
     getOrders,
-    Order,
     OrderStatus,
     PaymentMode,
     updateOrderStatus,
 } from '@api/orders';
+import type { Order } from '@api/orders';
 import { getStoredUserRole } from '@shared/lib/auth';
 
 const STATUS_LABELS: Record<Order['status'], string> = {
@@ -32,6 +33,7 @@ function formatDate(value?: string) {
 }
 
 export default function HistoryPage() {
+    const navigate = useNavigate();
     const role = getStoredUserRole();
     const [orders, setOrders] = useState<Order[]>([]);
     const [loading, setLoading] = useState(true);
@@ -106,6 +108,10 @@ export default function HistoryPage() {
     };
 
     const actions = selectedOrder ? getLessorActions(selectedOrder) : [];
+    const canOpenChat =
+        selectedOrder?.status === OrderStatus.ON_THE_WAY ||
+        selectedOrder?.status === OrderStatus.IN_PROGRESS ||
+        selectedOrder?.status === OrderStatus.COMPLETED;
 
     return (
         <>
@@ -245,6 +251,22 @@ export default function HistoryPage() {
                         </section>
 
                         {error && <p className={styles.error}>{error}</p>}
+
+                        {canOpenChat && (
+                            <div className={styles.modalActions}>
+                                <button
+                                    type="button"
+                                    className={styles.actionButton}
+                                    onClick={() =>
+                                        navigate(
+                                            `/orders/${selectedOrder.id}/chat`,
+                                        )
+                                    }
+                                >
+                                    Открыть чат
+                                </button>
+                            </div>
+                        )}
 
                         {actions.length > 0 && (
                             <div className={styles.modalActions}>

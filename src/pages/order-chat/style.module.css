@@ -1,0 +1,125 @@
+.main {
+    min-height: 100svh;
+    padding: 1rem 0 0;
+    width: 100svw;
+}
+
+.backButton {
+    margin-left: 5svw;
+    border: none;
+    background: transparent;
+    color: var(--foot-color);
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.main h1,
+.summary,
+.messages,
+.form,
+.error {
+    width: 90svw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.main h1 {
+    margin-top: 1rem;
+}
+
+.summary {
+    padding: 1rem;
+    border: 2px solid #d8dadc;
+    border-radius: 16px;
+    background: var(--quaternary-color);
+    box-sizing: border-box;
+}
+
+.summary h2 {
+    margin: 0 0 0.5rem;
+}
+
+.summary p {
+    margin: 0.25rem 0;
+    color: var(--foot-color);
+    font-size: 14px;
+}
+
+.messages {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.empty {
+    color: var(--foot-color);
+    text-align: center;
+}
+
+.message {
+    max-width: 82%;
+    padding: 0.75rem;
+    border-radius: 16px;
+    background: var(--quaternary-color);
+    align-self: flex-start;
+}
+
+.mine {
+    background: var(--secondary-color);
+    color: var(--primary-color);
+    align-self: flex-end;
+}
+
+.message p {
+    margin: 0.25rem 0;
+}
+
+.sender,
+.message span {
+    font-size: 12px;
+    opacity: 0.75;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.form textarea {
+    width: 100%;
+    min-height: 90px;
+    padding: 1rem;
+    border: 2px solid var(--secondary-color);
+    border-radius: 16px;
+    background: var(--quaternary-color);
+    font-family: 'Inter', sans-serif;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+.form button {
+    min-height: 48px;
+    border: none;
+    border-radius: 14px;
+    background: var(--secondary-color);
+    color: var(--primary-color);
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 3rem;
+}
+
+.form button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.error {
+    color: #c62828;
+}
+
+.basementIndent {
+    height: 10svh;
+}
