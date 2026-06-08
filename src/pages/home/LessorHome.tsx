@@ -207,13 +207,14 @@ export default function LessorHome() {
                 ) : (
                     techniques.map((technique) => (
                         <div key={technique.id} className={styles.box}>
-                            {/* <img
+                            <img
                                 src={
+                                    technique.photoUrl ||
                                     technique.techniqueType?.photoUrl ||
                                     '/placeholder.jpg'
                                 }
                                 alt={technique.name}
-                            /> */}
+                            />
                             <p className={styles.black}>
                                 <span className={styles.green}>●</span>{' '}
                                 {technique.status === 'IN_STOCK'

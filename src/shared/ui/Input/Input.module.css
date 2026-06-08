@@ -15,8 +15,8 @@
     min-height: 3.5rem;
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 768px) {
     .input {
-        width: auto;
+        width: 100%;
     }
 }

@@ -2,8 +2,10 @@ import { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import styles from './style.module.css';
 import { HomeBasement } from '@widgets';
-import { getTechniques, Technique } from '@api/techniques';
-import { getTechniqueTypes, TechniqueTypeInfo } from '@api/techniques-type';
+import { getTechniques } from '@api/techniques';
+import type { Technique } from '@api/techniques';
+import { getTechniqueTypes } from '@api/techniques-type';
+import type { TechniqueTypeInfo } from '@api/techniques-type';
 import TechniqueDetailModal from './TechniqueDetailModal';
 import {
     getStoredOrderSettings,
@@ -140,6 +142,14 @@ export default function FindTechniques() {
                                     setSelectedTechniqueId(technique.id)
                                 }
                             >
+                                <img
+                                    src={
+                                        technique.photoUrl ||
+                                        technique.techniqueType?.photoUrl ||
+                                        '/placeholder.jpg'
+                                    }
+                                    alt={technique.name}
+                                />
                                 <p className={styles.black}>
                                     <span className={styles.green}>●</span>{' '}
                                     {technique.status === 'IN_STOCK'

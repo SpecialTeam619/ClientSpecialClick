@@ -4,29 +4,51 @@ import { Input, FootNote, EmptyBlock } from '@shared/ui';
 import { useState } from 'react';
 import { useRegistration } from '../model/RegistrationContext';
 import { FaCheck, FaTimes } from 'react-icons/fa';
+import login from '@api/login';
+import checkPhoneExists, { ACCESS_TOKEN_KEY } from '@api';
+import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 function PasswordStep() {
-    const { data, updateData } = useRegistration();
-    const [password, setPassword] = useState(data.password || '');
+    const { data, updateData, clearData } = useRegistration();
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
 
-    function checkPassword(passwordValue: string) {
-        const isValidLength = passwordValue.length >= 6;
-        const hasLettersAndNumbers =
-            /\d/.test(passwordValue) &&
-            (/[a-zA-Z]/.test(passwordValue) ||
-                /[a-zа-яё]/i.test(passwordValue));
-        return { isValidLength, hasLettersAndNumbers };
+    async function handleSubmit() {
+        setError('');
+
+        const phoneCheck = await checkPhoneExists(data.phone);
+
+        if (phoneCheck.exists) {
+            try {
+                const response = await login(data.phone, data.password);
+
+                if (!response.access_token) {
+                    throw new Error('Не удалось получить токен');
+                }
+
+                Cookies.set(ACCESS_TOKEN_KEY, response.access_token, {secure: true, sameSite: 'strict'});
+                clearData();
+                navigate('/');
+                return;
+            } catch {
+                setError('Неверный номер телефона или пароль');
+                return false;
+            }
+        } else {
+            navigate('/register/role');
+            return;
+        }
     }
-
-    const passwordCheck = checkPassword(password);
-    const check =
-        passwordCheck.isValidLength && passwordCheck.hasLettersAndNumbers;
 
     function handlePassword(value: React.ChangeEvent<HTMLInputElement>) {
         const currentValue = value.target.value;
         setPassword(currentValue);
         updateData({ password: currentValue });
     }
+
+    const check = password.length >= 6 && /\d/.test(password) && /[a-zA-Z]/.test(password);
 
     return (
         <>
@@ -40,25 +62,22 @@ function PasswordStep() {
                 />
                 <FootNote>
                     <div style={{ textAlign: 'left' }}>
-                        {passwordCheck.isValidLength ? (
+                        {password.length >= 6 ? (
                             <FaCheck color="green" />
-                        ) : (
-                            <FaTimes color="red" />
-                        )}{' '}
-                        Пароль должен содержать не менее 6 символов
+                        ) : <FaTimes color="red" />}
+                        {' '}Пароль должен содержать не менее 6 символов
                     </div>
                     <div style={{ textAlign: 'left' }}>
-                        {passwordCheck.hasLettersAndNumbers ? (
+                        {/\d/.test(password) && /[a-zA-Z]/.test(password) ? (
                             <FaCheck color="green" />
-                        ) : (
-                            <FaTimes color="red" />
-                        )}{' '}
-                        Пароль должен содержать и буквы, и цифры
+                        ) : <FaTimes color="red" />}
+                        {' '}Пароль должен содержать и буквы, и цифры
                     </div>
                 </FootNote>
+                {error && <FootNote>{error}</FootNote>}
             </div>
             <EmptyBlock />
-            <Basement to="/register/role" isActive={check} />
+            <Basement isActive={check} onForward={handleSubmit} />
         </>
     );
 }

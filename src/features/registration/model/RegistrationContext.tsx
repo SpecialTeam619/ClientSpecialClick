@@ -66,8 +66,8 @@ export function RegistrationProvider({ children }: { children: ReactNode }) {
             data.name,
         );
 
-        if (response.accessToken) {
-            localStorage.setItem(ACCESS_TOKEN_KEY, response.accessToken);
+        if (response.access_token) {
+            localStorage.setItem(ACCESS_TOKEN_KEY, response.access_token);
         }
 
         clearData();

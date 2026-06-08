@@ -1,0 +1,1 @@
+import{u as n,j as t,L as s}from"./index-Bgh0iAoB.js";function a(){const e=n().state;return t.jsxs("main",{style:{padding:"2rem",textAlign:"center"},children:[t.jsx("h1",{children:"Вход"}),t.jsx("p",{children:e?.message??"Введите свои данные для входа в аккаунт."}),t.jsx(s,{to:"/register/name",children:"Вернуться к регистрации"})]})}export{a as default};

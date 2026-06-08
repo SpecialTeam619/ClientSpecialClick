@@ -164,7 +164,9 @@ export default function TechniqueDetailModal({
     };
 
     const photoUrl =
-        technique?.techniqueType?.photoUrl || '/placeholder.jpg';
+        technique?.photoUrl ||
+        technique?.techniqueType?.photoUrl ||
+        '/placeholder.jpg';
 
     return (
         <div

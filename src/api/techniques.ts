@@ -23,6 +23,7 @@ export type Technique = {
     name: string;
     techniqueTypeId: string;
     description: string;
+    photoUrl?: string | null;
     property: string[];
     createdAt?: string;
     updatedAt?: string;
@@ -48,6 +49,7 @@ export type CreateTechniquePayload = {
     techniqueTypeId: string;
     description: string;
     property: string[];
+    image?: File | null;
 };
 
 export type UpdateTechniquePayload = Partial<CreateTechniquePayload>;
@@ -97,12 +99,20 @@ export async function createTechnique(
     payload: CreateTechniquePayload,
 ): Promise<Technique> {
     const url = new URL(getApiUrl('/techniques/'));
+    const body = new FormData();
+
+    body.append('name', payload.name);
+    body.append('techniqueTypeId', payload.techniqueTypeId);
+    body.append('description', payload.description);
+    payload.property.forEach((item) => body.append('property', item));
+
+    if (payload.image) {
+        body.append('image', payload.image);
+    }
+
     const res = await apiFetch(url.toString(), {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
+        body,
     });
 
     if (!res.ok) {

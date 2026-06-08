@@ -136,7 +136,7 @@ export default function OrderSetupPage() {
                     className={styles.continueButton}
                     onClick={handleContinue}
                 >
-                    Продолжить к выбору техники
+                    Продолжить
                 </button>
             </main>
             <div className={styles.basementIndent} />

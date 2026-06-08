@@ -6,7 +6,6 @@ import { Input, FootNote, EmptyBlock } from '@shared/ui';
 import { useRegistration } from '../model/RegistrationContext';
 
 const PHONE_PREFIX = '+7';
-const PHONE_DIGITS_COUNT = 11;
 const PHONE_LENGTH = PHONE_PREFIX.length + 10;
 
 function normalizePhone(value: string) {
@@ -49,9 +48,7 @@ function PhoneStep() {
         if (normalizedPhone === PHONE_PREFIX || isValidPhone(normalizedPhone)) {
             setError('');
         } else {
-            setError(
-                `Введите номер в формате +7XXXXXXXXXX (${PHONE_DIGITS_COUNT} цифр)`,
-            );
+            setError('Введите номер в формате +7XXXXXXXXXX (11 цифр)');
         }
     }
 

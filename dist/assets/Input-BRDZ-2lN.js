@@ -1,0 +1,1 @@
+import{R as o,j as p}from"./index-Bgh0iAoB.js";const i="_input_1m902_1",u={input:i},a=o.forwardRef(function({className:t,...n},s){return p.jsx("input",{ref:s,className:[u.input,t].filter(Boolean).join(" "),...n})});a.displayName="Input";export{a as I};

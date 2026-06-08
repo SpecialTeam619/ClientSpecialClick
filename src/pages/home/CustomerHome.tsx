@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './style.module.css';
 import { HomeBasement } from '@widgets';
-import { getTechniqueTypes, TechniqueTypeInfo } from '@api/techniques-type';
+import { getTechniqueTypes } from '@api/techniques-type';
+import type { TechniqueTypeInfo } from '@api/techniques-type';
 
 export default function CustomerHome() {
     const navigate = useNavigate();

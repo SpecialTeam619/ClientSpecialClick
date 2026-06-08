@@ -12,3 +12,15 @@
     margin-left: 1rem;
     width: 149px;
 }
+
+@media (min-width: 768px) {
+    .header {
+        left: 50%;
+        transform: translateX(-50%);
+        width: var(--desktop-app-width);
+        height: 64px;
+        max-width: 100vw;
+        background: var(--primary-color);
+        z-index: 20;
+    }
+}

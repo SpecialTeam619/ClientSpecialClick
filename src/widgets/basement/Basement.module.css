@@ -28,3 +28,24 @@
     width: 16px;
     height: 16px;
 }
+
+/* @media (min-width: 768px) {
+    .basement {
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(var(--desktop-app-width) - 2rem);
+        max-width: calc(100vw - 2rem);
+        margin: 0 0 1.5rem;
+        transform: translateX(-50%);
+    }
+} */
+
+@media (min-width: 768px) {
+    .basement {
+        left: 50%;
+        width: calc(var(--desktop-app-width) - 2rem);
+        max-width: calc(100vw - 2rem);
+        margin: 0 0 1.5rem;
+        transform: translateX(-50%);
+    }
+}

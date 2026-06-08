@@ -16,6 +16,8 @@ function CreateTechniquePage() {
     const [techniqueTypeId, setTechniqueTypeId] = useState('');
     const [description, setDescription] = useState('');
     const [properties, setProperties] = useState(['']);
+    const [image, setImage] = useState<File | null>(null);
+    const [imagePreview, setImagePreview] = useState('');
     const [techniqueTypes, setTechniqueTypes] = useState<TechniqueTypeInfo[]>([]);
     const [typesLoading, setTypesLoading] = useState(true);
     const [submitting, setSubmitting] = useState(false);
@@ -69,6 +71,19 @@ function CreateTechniquePage() {
         );
     };
 
+    const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0] ?? null;
+
+        setImage(file);
+
+        if (!file) {
+            setImagePreview('');
+            return;
+        }
+
+        setImagePreview(URL.createObjectURL(file));
+    };
+
     const handleSubmit = async () => {
         if (!isValid) {
             return false;
@@ -88,6 +103,7 @@ function CreateTechniquePage() {
                 techniqueTypeId,
                 description: description.trim(),
                 property: trimmedProperties,
+                image,
             });
             navigate('/', { replace: true });
             return true;
@@ -171,6 +187,24 @@ function CreateTechniquePage() {
                     placeholder="Кратко опишите технику"
                     rows={4}
                 />
+
+                <label className={styles.label} htmlFor="technique-image">
+                    Изображение техники
+                </label>
+                <input
+                    id="technique-image"
+                    className={styles.fileInput}
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                />
+                {imagePreview && (
+                    <img
+                        className={styles.previewImage}
+                        src={imagePreview}
+                        alt="Предпросмотр техники"
+                    />
+                )}
 
                 <div className={styles.propertiesHeader}>
                     <span className={styles.label}>Свойства</span>

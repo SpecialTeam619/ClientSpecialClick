@@ -1,1 +1,0 @@
-import{j as e}from"./index-CW3pfwaQ.js";import"./Input-BUeFLcFk.js";import{L as s}from"./Logo-mXPFEdmV.js";const o="_block_upd8e_1",r={block:o};function l(){return e.jsx("div",{className:r.block})}const t="_header_1gw3z_1",c={header:t};function i(){return e.jsx("header",{className:c.header,children:e.jsx("div",{children:e.jsx(s,{})})})}export{l as E,i as H};

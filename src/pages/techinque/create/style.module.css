@@ -53,6 +53,24 @@
     min-height: 120px;
 }
 
+.fileInput {
+    width: 90svw;
+    margin-top: 0.5rem;
+    padding: 1rem;
+    border: 2px solid var(--secondary-color);
+    border-radius: 20px;
+    background: var(--quaternary-color);
+    box-sizing: border-box;
+}
+
+.previewImage {
+    width: 90svw;
+    margin-top: 0.75rem;
+    border-radius: 16px;
+    object-fit: cover;
+    max-height: 240px;
+}
+
 .propertiesHeader {
     display: flex;
     align-items: center;

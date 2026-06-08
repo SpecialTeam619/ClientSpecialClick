@@ -1,4 +1,4 @@
-import styles from './HomePage.module.css';
+import styles from './IntroductoryPage.module.css';
 import { FootNote, Logo, Button } from '@shared/ui';
 import { Link } from 'react-router-dom';
 import EmblaCarousel from '@widgets/EmblaCarousel';

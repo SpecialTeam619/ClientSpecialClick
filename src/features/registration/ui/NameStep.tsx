@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styles from '../../../pages/register/name/Register.module.css';
 import { Input, FootNote, EmptyBlock } from '@shared/ui';
 import { Basement, Header } from '@widgets';
@@ -77,12 +77,6 @@ function NameStep() {
                     value={name}
                     placeholder="Введите ваше имя"
                 />
-                <FootNote>
-                    {'Уже есть аккаунт? '}
-                    <Link to="/login" className={styles.login}>
-                        {'Войти'}
-                    </Link>
-                </FootNote>
                 {error && <FootNote>{error}</FootNote>}
             </div>
             <EmptyBlock />

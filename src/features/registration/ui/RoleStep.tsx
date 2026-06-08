@@ -1,56 +1,16 @@
-import { useNavigate } from 'react-router-dom';
+
 import { Header, Basement } from '@widgets';
 import styles from '../../../pages/register/role/Register.module.css';
-import { useEffect, useState } from 'react';
 import { EmptyBlock } from '@shared/ui';
 import { useRegistration } from '../model/RegistrationContext';
 import customerIcon from '@shared/assets/customer-icon.svg';
 import lessorIcon from '@shared/assets/lessor-icon.svg';
-import checkPhoneExists from '@api/phone';
-import login from '@api/login';
-import { ACCESS_TOKEN_KEY } from '@api';
-import Cookies from 'js-cookie';
 
 function RoleStep() {
-    const { data, updateData, clearData } = useRegistration();
-    const [selectedRole, setSelectedRole] = useState(data.role || 'CUSTOMER');
-    const [error, setError] = useState('');
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        setSelectedRole('CUSTOMER');
-        updateData({ role: 'CUSTOMER' });
-    }, []);
+    const { data, updateData } = useRegistration();
 
     function handleRoleChange(role: string) {
-        setSelectedRole(role);
         updateData({ role });
-    }
-
-    async function handleSubmit() {
-        setError('');
-
-        const phoneCheck = await checkPhoneExists(data.phone);
-
-        if (phoneCheck.exists) {
-            try {
-                const response = await login(data.phone, data.password);
-
-                if (!response.access_token) {
-                    throw new Error('Не удалось получить токен');
-                }
-
-                Cookies.set(ACCESS_TOKEN_KEY, response.access_token, {secure: true, sameSite: 'strict'});
-                clearData();
-                navigate('/');
-                return;
-            } catch {
-                setError('Неверный номер телефона или пароль');
-                return false;
-            }
-        } else {
-            navigate('/register/name');
-        }
     }
 
     return (
@@ -60,13 +20,13 @@ function RoleStep() {
                 <h1>Выбор роли</h1>
                 <div className={styles.fieldsetRole}>
                     <label
-                        className={`${styles.box} ${selectedRole === 'CUSTOMER' ? styles.active : ''}`}
+                        className={`${styles.box} ${data.role === 'CUSTOMER' ? styles.active : ''}`}
                     >
                         <input
                             type="radio"
                             name="role"
                             value="CUSTOMER"
-                            checked={selectedRole === 'CUSTOMER'}
+                            checked={data.role === 'CUSTOMER'}
                             onChange={() => handleRoleChange('CUSTOMER')}
                             style={{ display: 'none' }}
                         />
@@ -79,18 +39,18 @@ function RoleStep() {
                             type="radio"
                             name="choice"
                             value="2"
-                            checked={selectedRole === 'CUSTOMER'}
+                            checked={data.role === 'CUSTOMER'}
                         />
                     </label>
 
                     <label
-                        className={`${styles.box} ${selectedRole === 'LESSOR' ? styles.active : ''}`}
+                        className={`${styles.box} ${data.role === 'LESSOR' ? styles.active : ''}`}
                     >
                         <input
                             type="radio"
                             name="role"
                             value="LESSOR"
-                            checked={selectedRole === 'LESSOR'}
+                            checked={data.role === 'LESSOR'}
                             onChange={() => handleRoleChange('LESSOR')}
                             style={{ display: 'none' }}
                         />
@@ -103,21 +63,15 @@ function RoleStep() {
                             type="radio"
                             name="choice"
                             value="2"
-                            checked={selectedRole === 'LESSOR'}
+                            checked={data.role === 'LESSOR'}
                         />
                     </label>
                 </div>
-                {error ? (
-                    <div style={{ color: '#b00020', marginTop: '1rem' }}>
-                        {error}
-                    </div>
-                ) : null}
             </div>
             <EmptyBlock />
             <Basement
                 // to="/address"
-                // isActive={isReady}
-                onForward={handleSubmit}
+                to="/register/name"
             />
         </>
     );
