@@ -140,7 +140,10 @@ export async function getOrderMessages(
     orderId: string,
 ): Promise<ChatMessage[]> {
     const url = new URL(getApiUrl(`/orders/${orderId}/messages`));
-    const res = await apiFetch(url.toString(), { method: 'GET' });
+    const res = await apiFetch(url.toString(), {
+        method: 'GET',
+        cache: 'no-store',
+    });
 
     if (!res.ok) {
         const errorText = await res.text();

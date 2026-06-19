@@ -1,1 +1,0 @@
-import{j as e}from"./index-Bgh0iAoB.js";import"./Input-BRDZ-2lN.js";import{L as r}from"./Logo-CUlstJsa.js";const s="_header_1vdr4_1",t={header:s};function h(){return e.jsx("header",{className:t.header,children:e.jsx("div",{children:e.jsx(r,{style:{height:"2rem",width:"auto"}})})})}export{h as H};

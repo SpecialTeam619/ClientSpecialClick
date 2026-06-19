@@ -12,6 +12,8 @@ import {
 import { getStoredUserId } from '@shared/lib/auth';
 import styles from './style.module.css';
 
+const CHAT_REFRESH_INTERVAL_MS = 15_000;
+
 const STATUS_LABELS: Record<Order['status'], string> = {
     AWAITING: 'Ожидает',
     REJECTED: 'Отклонён',
@@ -74,7 +76,29 @@ export default function OrderChatPage() {
             }
         };
 
+        const refreshMessages = async () => {
+            try {
+                const messageData = await getOrderMessages(orderId);
+                setMessages(messageData);
+            } catch (error) {
+                const message =
+                    error instanceof Error
+                        ? error.message
+                        : 'Не удалось обновить чат';
+                setError(message);
+            }
+        };
+
         loadChat();
+
+        const intervalId = window.setInterval(
+            refreshMessages,
+            CHAT_REFRESH_INTERVAL_MS,
+        );
+
+        return () => {
+            window.clearInterval(intervalId);
+        };
     }, [orderId]);
 
     const handleSend = async () => {

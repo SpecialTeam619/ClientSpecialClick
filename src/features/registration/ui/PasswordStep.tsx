@@ -5,9 +5,9 @@ import { useState } from 'react';
 import { useRegistration } from '../model/RegistrationContext';
 import { FaCheck, FaTimes } from 'react-icons/fa';
 import login from '@api/login';
-import checkPhoneExists, { ACCESS_TOKEN_KEY } from '@api';
+import checkPhoneExists from '@api';
+import { setStoredAccessToken } from '@api/client';
 import { useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie';
 
 function PasswordStep() {
     const { data, updateData, clearData } = useRegistration();
@@ -28,7 +28,7 @@ function PasswordStep() {
                     throw new Error('Не удалось получить токен');
                 }
 
-                Cookies.set(ACCESS_TOKEN_KEY, response.access_token, {secure: true, sameSite: 'strict'});
+                setStoredAccessToken(response.access_token);
                 clearData();
                 navigate('/');
                 return;

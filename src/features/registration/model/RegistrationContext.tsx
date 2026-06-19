@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, type ReactNode } from 'react';
 import register from '@api/registration';
-import { ACCESS_TOKEN_KEY } from '@api';
+import { setStoredAccessToken } from '@api/client';
 
 interface RegistrationData {
     phone: string;
@@ -67,7 +67,7 @@ export function RegistrationProvider({ children }: { children: ReactNode }) {
         );
 
         if (response.access_token) {
-            localStorage.setItem(ACCESS_TOKEN_KEY, response.access_token);
+            setStoredAccessToken(response.access_token);
         }
 
         clearData();

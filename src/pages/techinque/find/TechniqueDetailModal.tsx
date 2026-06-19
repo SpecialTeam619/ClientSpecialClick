@@ -308,11 +308,12 @@ export default function TechniqueDetailModal({
                         )}
 
                         <div className={styles.modalActions}>
-                            <Button
+                            {canRent && !success ? (<Button
                                 text={renting ? 'Оформление...' : 'Арендовать'}
-                                active={canRent}
-                                onClick={handleRent}
-                            />
+                                    active={canRent}
+                                    onClick={handleRent}
+                                />
+                            ) : null}
                             {success && (
                                 <Button
                                     text="К заказам"
