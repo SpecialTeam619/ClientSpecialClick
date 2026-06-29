@@ -128,12 +128,45 @@ export async function updateTechnique(
     payload: UpdateTechniquePayload,
 ): Promise<Technique> {
     const url = new URL(getApiUrl(`/techniques/${id}`));
+
+    if (payload.image) {
+        const body = new FormData();
+
+        if (payload.name) {
+            body.append('name', payload.name);
+        }
+
+        if (payload.techniqueTypeId) {
+            body.append('techniqueTypeId', payload.techniqueTypeId);
+        }
+
+        if (payload.description) {
+            body.append('description', payload.description);
+        }
+
+        payload.property?.forEach((item) => body.append('property', item));
+        body.append('image', payload.image);
+
+        const res = await apiFetch(url.toString(), {
+            method: 'PATCH',
+            body,
+        });
+
+        if (!res.ok) {
+            const errorText = await res.text();
+            throw new Error(`HTTP ${res.status}: ${errorText}`);
+        }
+
+        return (await res.json()) as Technique;
+    }
+
+    const { image: _image, ...jsonPayload } = payload;
     const res = await apiFetch(url.toString(), {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(jsonPayload),
     });
 
     if (!res.ok) {

@@ -1,9 +1,13 @@
-import { lazy } from 'react';
+import { lazy, useEffect, useState } from 'react';
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
-import { getStoredAccessToken } from '@shared/lib/auth';
+import { me } from '@api/users';
+import {
+    clearStoredAuth,
+    getStoredAccessToken,
+    isInvalidSessionError,
+} from '@shared/lib/auth';
 
 const IntroductoryPage = lazy(() => import('@pages/IntroductoryPage'));
-const Login = lazy(() => import('@pages/login/Login'));
 const RegisterPhoneNumber = lazy(() => import('@pages/register/phone-number'));
 const RegisterName = lazy(() => import('@pages/register/name'));
 const RegisterRole = lazy(() => import('@pages/register/role'));
@@ -24,7 +28,49 @@ function hasAccessToken() {
 }
 
 function ProtectedRoute() {
-    return hasAccessToken() ? (
+    const [sessionState, setSessionState] = useState<
+        'loading' | 'authenticated' | 'unauthenticated'
+    >('loading');
+
+    useEffect(() => {
+        let cancelled = false;
+
+        const validateSession = async () => {
+            if (!getStoredAccessToken()) {
+                if (!cancelled) {
+                    setSessionState('unauthenticated');
+                }
+                return;
+            }
+
+            try {
+                await me();
+                if (!cancelled) {
+                    setSessionState('authenticated');
+                }
+            } catch (error) {
+                if (isInvalidSessionError(error)) {
+                    clearStoredAuth();
+                }
+
+                if (!cancelled) {
+                    setSessionState('unauthenticated');
+                }
+            }
+        };
+
+        void validateSession();
+
+        return () => {
+            cancelled = true;
+        };
+    }, []);
+
+    if (sessionState === 'loading') {
+        return null;
+    }
+
+    return sessionState === 'authenticated' ? (
         <Outlet />
     ) : (
         <Navigate to="/register/phone" replace />
@@ -40,7 +86,10 @@ export default function AppRouter() {
         <Routes>
             <Route path="/introductory" element={<IntroductoryPage />} />
             <Route element={<GuestRoute />}>
-                <Route path="/login" element={<Login />} />
+                <Route
+                    path="/login"
+                    element={<Navigate to="/register/phone" replace />}
+                />
                 <Route
                     path="/register/phone"
                     element={<RegisterPhoneNumber />}

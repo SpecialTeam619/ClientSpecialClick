@@ -2,36 +2,90 @@
     margin: 1rem auto 0.5rem;
     width: 90svw;
     text-align: start;
-    color: var(--foot-color);
+    color: var(--text-color);
     font-size: 20px;
     font-weight: 500;
+    margin-bottom: 0;
 }
 
-.lessorHeader {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.pageSubtitle {
+    margin: 0 auto;
+    width: 90svw;
+    text-align: start;
+    color: var(--foot-color);
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Manrope', sans-serif;
+    margin-bottom: 0.5rem;
+}
+
+.header {
     width: 90svw;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
     gap: 0.5rem;
 }
 
-.lessorHeader .pageTitle {
-    margin: 1rem 0 0.5rem;
-    width: auto;
-    flex: 1;
+.searchContainer {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 90svw;
+    border: 1px solid #D8DADC;
+    border-radius: 20px;
+    background: var(--quaternary-color);
+    color: black;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+    text-indent: 16px;
+    border-radius: var(--border-radius, 20px);
+    box-sizing: border-box;
+    min-height: 3.5rem;
+    margin: 1rem auto 0.5rem;
+    padding: 0 16px;
+}
+
+.searchInput {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+}
+
+.searchInput::placeholder {
+    color: var(--foot-color);
+}
+
+.searchButton {
+    border: none;
+    background: transparent;
+    color: var(--foot-color);
+    font-size: 16px;
+    cursor: pointer;
 }
 
 .addButton {
     border: none;
     border-radius: 12px;
-    background-color: var(--tertiary-color);
-    color: #fff;
+    color: var(--text-color);
     font-size: 14px;
     font-weight: 600;
     padding: 10px 14px;
     cursor: pointer;
     white-space: nowrap;
+    background: var(--quaternary-color);
+    border-radius: 20px;
+    padding: 10px 14px;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    text-indent: 0;
 }
 
 .editButton {
@@ -131,6 +185,24 @@
     min-height: 120px;
     padding: 16px 22px;
     resize: vertical;
+}
+
+.fileInput {
+    width: 90svw;
+    margin-top: 0.5rem;
+    padding: 1rem;
+    border: none;
+    border-radius: 20px;
+    background: var(--quaternary-color);
+    box-sizing: border-box;
+}
+
+.previewImage {
+    width: 90svw;
+    margin-top: 0.75rem;
+    border-radius: 16px;
+    object-fit: cover;
+    max-height: 240px;
 }
 
 .propertiesHeader {

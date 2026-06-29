@@ -17,6 +17,30 @@
     cursor: pointer;
 }
 
+.input {
+    background-color: #F3F3F3;
+    color: black;
+    border: none;
+    cursor: pointer;
+    width: 90svw;
+    line-height: 3.5rem;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    text-indent: 22px;
+    margin-top: 1rem;
+    border-radius: var(--border-radius, 20px);
+    box-sizing: border-box;
+    min-height: 3.5rem;
+    text-indent: 16px;
+    padding: 0 16px;
+}
+
+@media (min-width: 768px) {
+    .input {
+        width: 100%;
+    }
+}
+
 .main h1,
 .description,
 .label,
@@ -52,17 +76,33 @@
     font-size: 14px;
 }
 
+.radioCardBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    gap: 1rem;
+}
+
 .radioCard {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    min-height: 52px;
+    min-height: 46px;
     margin-bottom: 0.75rem;
     padding: 0 1rem;
-    border: 2px solid #d8dadc;
+    border: none;
     border-radius: 16px;
-    background: var(--quaternary-color);
-    font-weight: 600;
+    background: #F5F4F1;
+    width: 100%;
+}
+
+.active {
+    background: #1A1A1A;
+    color: #FFFFFF;
+}
+
+.radioCard input[type="radio"] {
+    width: 0;
 }
 
 .error {
@@ -79,7 +119,6 @@
     background: var(--secondary-color);
     color: var(--primary-color);
     font-size: 16px;
-    font-weight: 600;
     cursor: pointer;
 }
 

@@ -54,3 +54,17 @@ export function clearStoredAuth(): void {
     Cookies.remove(ACCESS_TOKEN_KEY);
     window.localStorage.removeItem(ACCESS_TOKEN_KEY);
 }
+
+export function getHttpStatusFromApiError(error: unknown): number | null {
+    if (!(error instanceof Error)) {
+        return null;
+    }
+
+    const match = error.message.match(/^HTTP (\d{3}):/);
+    return match ? Number(match[1]) : null;
+}
+
+export function isInvalidSessionError(error: unknown): boolean {
+    const status = getHttpStatusFromApiError(error);
+    return status === 401 || status === 404;
+}

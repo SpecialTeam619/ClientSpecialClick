@@ -68,7 +68,6 @@ function RoleStep() {
                     </label>
                 </div>
             </div>
-            <EmptyBlock />
             <Basement
                 // to="/address"
                 to="/register/name"

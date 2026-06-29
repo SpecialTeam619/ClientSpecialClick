@@ -3,7 +3,7 @@ import styles from './style.module.css';
 import { useEffect, useState } from 'react';
 import { deleteUser, me, updateUser, type User } from '@api/users';
 import { Button, Input } from '@shared/ui';
-import { clearStoredAuth } from '@shared/lib/auth';
+import { clearStoredAuth, isInvalidSessionError } from '@shared/lib/auth';
 import { useNavigate } from 'react-router-dom';
 
 function normalizePhone(value: string) {
@@ -44,11 +44,16 @@ export default function ProfilePage() {
                 setPhone(normalizePhone(user.phone));
             } catch (error) {
                 console.error('Failed to fetch user:', error);
+
+                if (isInvalidSessionError(error)) {
+                    clearStoredAuth();
+                    navigate('/register/phone', { replace: true });
+                }
             }
         };
 
         fetchUser();
-    }, []);
+    }, [navigate]);
 
     const handleLogout = () => {
         clearStoredAuth();

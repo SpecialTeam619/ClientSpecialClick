@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './style.module.css';
-import { Input, EmptyBlock } from '@shared/ui';
+import { EmptyBlock } from '@shared/ui';
 import { Basement } from '@widgets';
 import { createTechnique } from '@api/techniques';
 import { getTechniqueTypes } from '@api/techniques-type';
@@ -145,9 +145,10 @@ function CreateTechniquePage() {
                 <label className={styles.label} htmlFor="technique-name">
                     Название
                 </label>
-                <Input
+                <input
                     id="technique-name"
                     type="text"
+                    className={styles.input}
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Например, Экскаватор JCB"
@@ -170,7 +171,7 @@ function CreateTechniquePage() {
                             : 'Выберите тип техники'}
                     </option>
                     {techniqueTypes.map((type) => (
-                        <option key={type.id} value={type.id}>
+                        <option key={type.id} value={type.id} className={styles.option}>
                             {type.name}
                         </option>
                     ))}
@@ -220,7 +221,8 @@ function CreateTechniquePage() {
                 {properties.map((property, index) => (
                     <div key={index} className={styles.propertyRow}>
                         <div className={styles.propertyInputWrap}>
-                            <Input
+                            <input
+                                className={styles.input}
                                 type="text"
                                 value={property}
                                 onChange={(e) =>
@@ -228,6 +230,7 @@ function CreateTechniquePage() {
                                 }
                                 placeholder={`Свойство ${index + 1}`}
                                 maxLength={255}
+                                className={styles.input}
                             />
                         </div>
                         {properties.length > 1 && (

@@ -12,6 +12,7 @@ import type { Technique } from '@api/techniques';
 import { getTechniqueTypes } from '@api/techniques-type';
 import type { TechniqueTypeInfo } from '@api/techniques-type';
 import { getStoredUserId } from '@shared/lib/auth';
+import { CiSearch } from "react-icons/ci";
 
 export default function LessorHome() {
     const navigate = useNavigate();
@@ -25,11 +26,14 @@ export default function LessorHome() {
     const [techniqueTypeId, setTechniqueTypeId] = useState('');
     const [description, setDescription] = useState('');
     const [properties, setProperties] = useState<string[]>(['']);
+    const [image, setImage] = useState<File | null>(null);
+    const [imagePreview, setImagePreview] = useState('');
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [deleting, setDeleting] = useState(false);
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
     const [error, setError] = useState('');
+    const [search, setSearch] = useState('');
 
     const fetchMyTechniques = useCallback(async () => {
         if (!ownerId) {
@@ -88,8 +92,20 @@ export default function LessorHome() {
         setTechniqueTypeId(technique.techniqueTypeId);
         setDescription(technique.description);
         setProperties(technique.property.length > 0 ? technique.property : ['']);
+        setImage(null);
+        setImagePreview(
+            technique.photoUrl ||
+                technique.techniqueType?.photoUrl ||
+                '',
+        );
         setError('');
         setShowDeleteConfirm(false);
+    };
+
+    const resetImagePreview = (preview: string) => {
+        if (preview.startsWith('blob:')) {
+            URL.revokeObjectURL(preview);
+        }
     };
 
     const closeEditModal = () => {
@@ -97,9 +113,30 @@ export default function LessorHome() {
             return;
         }
 
+        resetImagePreview(imagePreview);
+        setImage(null);
+        setImagePreview('');
         setEditingTechnique(null);
         setError('');
         setShowDeleteConfirm(false);
+    };
+
+    const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0] ?? null;
+
+        setImage(file);
+        resetImagePreview(imagePreview);
+
+        if (!file) {
+            setImagePreview(
+                editingTechnique?.photoUrl ||
+                    editingTechnique?.techniqueType?.photoUrl ||
+                    '',
+            );
+            return;
+        }
+
+        setImagePreview(URL.createObjectURL(file));
     };
 
     const handlePropertyChange = (index: number, value: string) => {
@@ -132,7 +169,11 @@ export default function LessorHome() {
                 techniqueTypeId,
                 description: description.trim(),
                 property: trimmedProperties,
+                image,
             });
+
+            resetImagePreview(imagePreview);
+            setImage(null);
 
             setTechniques((prev) =>
                 prev.map((item) =>
@@ -177,35 +218,37 @@ export default function LessorHome() {
         }
     };
 
+    const handleSearch = (search: string) => {
+        setSearch(search);
+    };
+
+    const filteredTechniques = useMemo(() => {
+        return techniques.filter((technique) => technique.name.toLowerCase().includes(search.toLowerCase()));
+    }, [techniques, search]);
+
     return (
         <>
-            <div className={styles.lessorHeader}>
+            <div className={styles.header}>
                 <h1 className={styles.pageTitle}>Моя техника</h1>
-                <button
-                    type="button"
-                    className={styles.addButton}
-                    onClick={() => navigate('/technique/create')}
-                >
-                    + Добавить
+            </div>
+            <div className={styles.searchContainer}>
+                <button type="button" className={styles.searchButton} onClick={() => handleSearch(search)}>
+                    <CiSearch size={24} />
                 </button>
+                <input
+                    className={styles.searchInput}
+                    type="text"
+                    placeholder="Поиск техники"
+                    value={search}
+                    onChange={(e) => handleSearch(e.target.value)}
+                />
             </div>
 
             <div className={styles.fieldsetCard}>
                 {loading ? (
                     <p>Загрузка...</p>
-                ) : techniques.length === 0 ? (
-                    <div className={styles.emptyState}>
-                        <p>У вас пока нет техники</p>
-                        <button
-                            type="button"
-                            className={styles.addButton}
-                            onClick={() => navigate('/technique/create')}
-                        >
-                            Добавить технику
-                        </button>
-                    </div>
                 ) : (
-                    techniques.map((technique) => (
+                    filteredTechniques.map((technique) => (
                         <div key={technique.id} className={styles.box}>
                             <img
                                 src={
@@ -238,6 +281,15 @@ export default function LessorHome() {
                         </div>
                     ))
                 )}
+                <div className={styles.box}>
+                    <button
+                        type="button"
+                        className={styles.addButton}
+                        onClick={() => navigate('/technique/create')}
+                    >
+                        Добавить технику
+                    </button>
+                </div>
             </div>
 
             {editingTechnique && (
@@ -312,6 +364,27 @@ export default function LessorHome() {
                             rows={4}
                             placeholder="Описание техники"
                         />
+
+                        <label
+                            className={styles.formLabel}
+                            htmlFor="edit-image"
+                        >
+                            Изображение техники
+                        </label>
+                        <input
+                            id="edit-image"
+                            className={styles.fileInput}
+                            type="file"
+                            accept="image/*"
+                            onChange={handleImageChange}
+                        />
+                        {imagePreview && (
+                            <img
+                                className={styles.previewImage}
+                                src={imagePreview}
+                                alt="Изображение техники"
+                            />
+                        )}
 
                         <div className={styles.propertiesHeader}>
                             <span className={styles.formLabel}>Свойства</span>

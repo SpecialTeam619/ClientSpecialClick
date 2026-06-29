@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { HomeBasement } from '@widgets';
-import { Input } from '@shared/ui';
+import { Basement } from '@widgets';
+
 import {
     getStoredOrderSettings,
     isOrderSettingsComplete,
@@ -61,8 +61,10 @@ export default function OrderSetupPage() {
                 <label className={styles.label} htmlFor="object-address">
                     Адрес объекта
                 </label>
-                <Input
+                <input
+                    type="text"
                     id="object-address"
+                    className={styles.input}
                     value={settings.objectAddress}
                     onChange={(event) =>
                         updateSettings({ objectAddress: event.target.value })
@@ -73,9 +75,10 @@ export default function OrderSetupPage() {
                 <label className={styles.label} htmlFor="arrival-date">
                     Дата приезда
                 </label>
-                <Input
-                    id="arrival-date"
+                <input
                     type="date"
+                    id="arrival-date"
+                    className={styles.input}
                     value={settings.arrivalDate}
                     onChange={(event) =>
                         updateSettings({ arrivalDate: event.target.value })
@@ -85,9 +88,10 @@ export default function OrderSetupPage() {
                 <label className={styles.label} htmlFor="arrival-time">
                     Время приезда
                 </label>
-                <Input
-                    id="arrival-time"
+                <input
                     type="time"
+                    id="arrival-time"
+                    className={styles.input}
                     value={settings.arrivalTime}
                     onChange={(event) =>
                         updateSettings({ arrivalTime: event.target.value })
@@ -96,7 +100,8 @@ export default function OrderSetupPage() {
 
                 <fieldset className={styles.paymentMode}>
                     <legend>Режим оплаты</legend>
-                    <label className={styles.radioCard}>
+                    <div className={styles.radioCardBox}>
+                    <label className={`${styles.radioCard} ${settings.paymentMode === PaymentMode.SHIFT_7_PLUS_1 ? styles.active : ''}`}>
                         <input
                             type="radio"
                             name="paymentMode"
@@ -113,7 +118,7 @@ export default function OrderSetupPage() {
                         />
                         <span>Смена 7+1</span>
                     </label>
-                    <label className={styles.radioCard}>
+                    <label className={`${styles.radioCard} ${settings.paymentMode === PaymentMode.HOURLY ? styles.active : ''}`}>
                         <input
                             type="radio"
                             name="paymentMode"
@@ -125,22 +130,14 @@ export default function OrderSetupPage() {
                                 })
                             }
                         />
-                        <span>Почасовая</span>
-                    </label>
+                            <span>Почасовая</span>
+                        </label>
+                    </div>
                 </fieldset>
 
                 {error && <p className={styles.error}>{error}</p>}
-
-                <button
-                    type="button"
-                    className={styles.continueButton}
-                    onClick={handleContinue}
-                >
-                    Продолжить
-                </button>
             </main>
-            <div className={styles.basementIndent} />
-            <HomeBasement />
+            <Basement isActive={isOrderSettingsComplete(settings)} onForward={handleContinue} />
         </>
     );
 }
