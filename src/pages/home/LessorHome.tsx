@@ -12,6 +12,7 @@ import type { Technique } from '@api/techniques';
 import { getTechniqueTypes } from '@api/techniques-type';
 import type { TechniqueTypeInfo } from '@api/techniques-type';
 import { getStoredUserId } from '@shared/lib/auth';
+import { formatPricePerHour } from '@shared/lib/formatPrice';
 import { CiSearch } from "react-icons/ci";
 
 export default function LessorHome() {
@@ -25,6 +26,7 @@ export default function LessorHome() {
     const [name, setName] = useState('');
     const [techniqueTypeId, setTechniqueTypeId] = useState('');
     const [description, setDescription] = useState('');
+    const [pricePerHour, setPricePerHour] = useState('');
     const [properties, setProperties] = useState<string[]>(['']);
     const [image, setImage] = useState<File | null>(null);
     const [imagePreview, setImagePreview] = useState('');
@@ -79,10 +81,14 @@ export default function LessorHome() {
         [properties],
     );
 
+    const parsedPrice = Number.parseInt(pricePerHour, 10);
+
     const isFormValid =
         name.trim() !== '' &&
         techniqueTypeId !== '' &&
         description.trim() !== '' &&
+        Number.isFinite(parsedPrice) &&
+        parsedPrice > 0 &&
         trimmedProperties.length > 0 &&
         !saving;
 
@@ -91,6 +97,7 @@ export default function LessorHome() {
         setName(technique.name);
         setTechniqueTypeId(technique.techniqueTypeId);
         setDescription(technique.description);
+        setPricePerHour(String(technique.pricePerHour ?? ''));
         setProperties(technique.property.length > 0 ? technique.property : ['']);
         setImage(null);
         setImagePreview(
@@ -168,6 +175,7 @@ export default function LessorHome() {
                 name: name.trim(),
                 techniqueTypeId,
                 description: description.trim(),
+                pricePerHour: parsedPrice,
                 property: trimmedProperties,
                 image,
             });
@@ -268,6 +276,11 @@ export default function LessorHome() {
                             <p className={styles.typeLabel}>
                                 {technique.techniqueType?.name ?? 'Тип не указан'}
                             </p>
+                            {technique.pricePerHour > 0 && (
+                                <p className={styles.price}>
+                                    {formatPricePerHour(technique.pricePerHour)}
+                                </p>
+                            )}
                             <p className={styles.description}>
                                 {technique.description}
                             </p>
@@ -363,6 +376,24 @@ export default function LessorHome() {
                             }
                             rows={4}
                             placeholder="Описание техники"
+                        />
+
+                        <label
+                            className={styles.formLabel}
+                            htmlFor="edit-price"
+                        >
+                            Цена, ₽/час
+                        </label>
+                        <Input
+                            id="edit-price"
+                            type="number"
+                            min={1}
+                            step={1}
+                            value={pricePerHour}
+                            onChange={(event) =>
+                                setPricePerHour(event.target.value)
+                            }
+                            placeholder="Например, 2500"
                         />
 
                         <label

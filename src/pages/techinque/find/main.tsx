@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import styles from './style.module.css';
 import { HomeBasement } from '@widgets';
@@ -7,6 +7,7 @@ import type { Technique } from '@api/techniques';
 import { getTechniqueTypes } from '@api/techniques-type';
 import type { TechniqueTypeInfo } from '@api/techniques-type';
 import TechniqueDetailModal from './TechniqueDetailModal';
+import { formatPricePerHour } from '@shared/lib/formatPrice';
 import {
     getStoredOrderSettings,
     isOrderSettingsComplete,
@@ -62,6 +63,67 @@ export default function FindTechniques() {
     useEffect(() => {
         fetchTechniques();
     }, [fetchTechniques]);
+
+    const { availableTechniques, rentedTechniques } = useMemo(() => {
+        const available: Technique[] = [];
+        const rented: Technique[] = [];
+
+        techniques.forEach((technique) => {
+            if (technique.status === 'IN_STOCK') {
+                available.push(technique);
+                return;
+            }
+
+            rented.push(technique);
+        });
+
+        return {
+            availableTechniques: available,
+            rentedTechniques: rented,
+        };
+    }, [techniques]);
+
+    const renderTechniqueCard = (technique: Technique) => (
+        <button
+            key={technique.id}
+            type="button"
+            className={styles.box}
+            onClick={() => setSelectedTechniqueId(technique.id)}
+        >
+            <img
+                src={
+                    technique.photoUrl ||
+                    technique.techniqueType?.photoUrl ||
+                    '/placeholder.jpg'
+                }
+                alt={technique.name}
+            />
+            <p className={styles.black}>
+                <span
+                    className={
+                        technique.status === 'IN_STOCK'
+                            ? styles.green
+                            : styles.orange
+                    }
+                >
+                    ●
+                </span>{' '}
+                {technique.status === 'IN_STOCK' ? 'В наличии' : 'Арендована'}
+            </p>
+            <h3>{technique.name}</h3>
+            {technique.pricePerHour > 0 && (
+                <p className={styles.price}>
+                    {formatPricePerHour(technique.pricePerHour)}
+                </p>
+            )}
+            {technique.owner && (
+                <p className={styles.lessorName}>
+                    Арендодатель: {technique.owner.name}
+                </p>
+            )}
+            <p className={styles.description}>{technique.description}</p>
+        </button>
+    );
 
     const handleBack = () => {
         navigate('/');
@@ -133,40 +195,29 @@ export default function FindTechniques() {
                     ) : techniques.length === 0 ? (
                         <p>Техника не найдена</p>
                     ) : (
-                        techniques.map((technique) => (
-                            <button
-                                key={technique.id}
-                                type="button"
-                                className={styles.box}
-                                onClick={() =>
-                                    setSelectedTechniqueId(technique.id)
-                                }
-                            >
-                                <img
-                                    src={
-                                        technique.photoUrl ||
-                                        technique.techniqueType?.photoUrl ||
-                                        '/placeholder.jpg'
-                                    }
-                                    alt={technique.name}
-                                />
-                                <p className={styles.black}>
-                                    <span className={styles.green}>●</span>{' '}
-                                    {technique.status === 'IN_STOCK'
-                                        ? 'В наличии'
-                                        : 'Арендована'}
-                                </p>
-                                <h3>{technique.name}</h3>
-                                {technique.owner && (
-                                    <p className={styles.lessorName}>
-                                        Арендодатель: {technique.owner.name}
+                        <>
+                            <section className={styles.section}>
+                                <h2 className={styles.sectionTitle}>
+                                    В наличии
+                                </h2>
+                                {availableTechniques.length === 0 ? (
+                                    <p className={styles.sectionEmpty}>
+                                        Свободной техники пока нет
                                     </p>
+                                ) : (
+                                    availableTechniques.map(renderTechniqueCard)
                                 )}
-                                <p className={styles.description}>
-                                    {technique.description}
-                                </p>
-                            </button>
-                        ))
+                            </section>
+
+                            {rentedTechniques.length > 0 && (
+                                <section className={styles.section}>
+                                    <h2 className={styles.sectionTitle}>
+                                        Арендована
+                                    </h2>
+                                    {rentedTechniques.map(renderTechniqueCard)}
+                                </section>
+                            )}
+                        </>
                     )}
                 </div>
             </div>

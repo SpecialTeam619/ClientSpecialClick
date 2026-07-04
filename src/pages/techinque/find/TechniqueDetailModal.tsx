@@ -11,6 +11,7 @@ import {
     PAYMENT_MODE_LABELS,
     type OrderSettings,
 } from '@shared/lib/orderSettings';
+import { formatPricePerHour } from '@shared/lib/formatPrice';
 
 type TechniqueDetailModalProps = {
     techniqueId: string | null;
@@ -219,6 +220,12 @@ export default function TechniqueDetailModal({
                                 <strong>Тип:</strong>{' '}
                                 {technique.techniqueType?.name ?? '—'}
                             </p>
+                            {technique.pricePerHour > 0 && (
+                                <p>
+                                    <strong>Цена:</strong>{' '}
+                                    {formatPricePerHour(technique.pricePerHour)}
+                                </p>
+                            )}
                             <p>
                                 <strong>Описание:</strong> {technique.description}
                             </p>

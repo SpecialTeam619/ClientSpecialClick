@@ -24,6 +24,7 @@ export type Technique = {
     techniqueTypeId: string;
     description: string;
     photoUrl?: string | null;
+    pricePerHour: number;
     property: string[];
     createdAt?: string;
     updatedAt?: string;
@@ -48,6 +49,7 @@ export type CreateTechniquePayload = {
     name: string;
     techniqueTypeId: string;
     description: string;
+    pricePerHour: number;
     property: string[];
     image?: File | null;
 };
@@ -104,6 +106,7 @@ export async function createTechnique(
     body.append('name', payload.name);
     body.append('techniqueTypeId', payload.techniqueTypeId);
     body.append('description', payload.description);
+    body.append('pricePerHour', String(payload.pricePerHour));
     payload.property.forEach((item) => body.append('property', item));
 
     if (payload.image) {
@@ -142,6 +145,10 @@ export async function updateTechnique(
 
         if (payload.description) {
             body.append('description', payload.description);
+        }
+
+        if (typeof payload.pricePerHour !== 'undefined') {
+            body.append('pricePerHour', String(payload.pricePerHour));
         }
 
         payload.property?.forEach((item) => body.append('property', item));

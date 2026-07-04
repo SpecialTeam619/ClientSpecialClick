@@ -7,6 +7,7 @@ import { createTechnique } from '@api/techniques';
 import { getTechniqueTypes } from '@api/techniques-type';
 import type { TechniqueTypeInfo } from '@api/techniques-type';
 import { getStoredUserRole } from '@shared/lib/auth';
+import { formatPricePerHour } from '@shared/lib/formatPrice';
 
 function CreateTechniquePage() {
     const navigate = useNavigate();
@@ -15,6 +16,7 @@ function CreateTechniquePage() {
     const [name, setName] = useState('');
     const [techniqueTypeId, setTechniqueTypeId] = useState('');
     const [description, setDescription] = useState('');
+    const [pricePerHour, setPricePerHour] = useState('');
     const [properties, setProperties] = useState(['']);
     const [image, setImage] = useState<File | null>(null);
     const [imagePreview, setImagePreview] = useState('');
@@ -47,10 +49,14 @@ function CreateTechniquePage() {
         [properties],
     );
 
+    const parsedPrice = Number.parseInt(pricePerHour, 10);
+
     const isValid =
         name.trim() !== '' &&
         techniqueTypeId !== '' &&
         description.trim() !== '' &&
+        Number.isFinite(parsedPrice) &&
+        parsedPrice > 0 &&
         trimmedProperties.length > 0 &&
         !submitting &&
         !typesLoading;
@@ -102,6 +108,7 @@ function CreateTechniquePage() {
                 name: name.trim(),
                 techniqueTypeId,
                 description: description.trim(),
+                pricePerHour: parsedPrice,
                 property: trimmedProperties,
                 image,
             });
@@ -189,6 +196,20 @@ function CreateTechniquePage() {
                     rows={4}
                 />
 
+                <label className={styles.label} htmlFor="technique-price">
+                    Цена, ₽/час
+                </label>
+                <input
+                    id="technique-price"
+                    type="number"
+                    min={1}
+                    step={1}
+                    className={styles.input}
+                    value={pricePerHour}
+                    onChange={(e) => setPricePerHour(e.target.value)}
+                    placeholder="Например, 2500"
+                />
+
                 <label className={styles.label} htmlFor="technique-image">
                     Изображение техники
                 </label>
@@ -248,7 +269,6 @@ function CreateTechniquePage() {
 
                 {error && <p className={styles.error}>{error}</p>}
             </div>
-            <EmptyBlock />
             <Basement
                 onForward={handleSubmit}
                 isActive={isValid}
