@@ -158,12 +158,38 @@ export default function ProfilePage() {
                 ) : (
                     <div className={styles.profileContainer}>
                         <h2 className={styles.profileName}>{user.name}</h2>
-                        <p className={styles.profilePhone}>Телефон: {user.phone}</p>
-                        <p className={styles.profileRole}>Роль: {user.role === 'LESSOR' ? 'Арендодатель' : 'Заказчик'}</p>
+                        <p className={styles.profilePhone}>
+                            Телефон: {user.phone}
+                        </p>
+                        <p className={styles.profileRole}>
+                            Роль:{' '}
+                            {user.role === 'LESSOR'
+                                ? 'Арендодатель'
+                                : 'Заказчик'}
+                        </p>
 
+                        
+
+                        {error && <p className={styles.error}>{error}</p>}
+
+                        <Button
+                            text="Выйти из аккаунта"
+                            onClick={handleLogout}
+                            style="gray"
+                        />
+
+                        
+                        {!isEditing && <Button
+                            text="Редактировать профиль"
+                            onClick={handleEditClick}
+                            style="gray"
+                        />}
                         {isEditing && (
                             <div className={styles.editForm}>
-                                <label className={styles.label} htmlFor="profile-name">
+                                <label
+                                    className={styles.label}
+                                    htmlFor="profile-name"
+                                >
                                     Имя
                                 </label>
                                 <Input
@@ -176,7 +202,10 @@ export default function ProfilePage() {
                                     placeholder="Введите имя"
                                 />
 
-                                <label className={styles.label} htmlFor="profile-phone">
+                                <label
+                                    className={styles.label}
+                                    htmlFor="profile-phone"
+                                >
                                     Телефон
                                 </label>
                                 <Input
@@ -186,7 +215,9 @@ export default function ProfilePage() {
                                     inputMode="numeric"
                                     maxLength={12}
                                     onChange={(event) =>
-                                        setPhone(normalizePhone(event.target.value))
+                                        setPhone(
+                                            normalizePhone(event.target.value),
+                                        )
                                     }
                                     placeholder="+7XXXXXXXXXX"
                                 />
@@ -200,16 +231,28 @@ export default function ProfilePage() {
                                         }
                                         active={loadingAction === false}
                                         onClick={handleSaveProfile}
+                                        style='gray'
                                     />
                                     <Button
                                         text="Отмена"
                                         active={loadingAction === false}
                                         onClick={handleCancelEdit}
+                                        style='gray'
                                     />
                                 </div>
                             </div>
                         )}
 
+
+                        {!showDeleteConfirm && <Button
+                            text="Удалить аккаунт"
+                            onClick={() => {
+                                setError('');
+                                setIsEditing(false);
+                                setShowDeleteConfirm(true);
+                            }}
+                            style="dangerous"
+                        />}
                         {showDeleteConfirm && (
                             <div className={styles.deleteConfirm}>
                                 <p>
@@ -225,6 +268,7 @@ export default function ProfilePage() {
                                         }
                                         active={loadingAction === false}
                                         onClick={handleDeleteAccount}
+                                        style="dangerous"
                                     />
                                     <Button
                                         text="Отмена"
@@ -233,29 +277,11 @@ export default function ProfilePage() {
                                             setError('');
                                             setShowDeleteConfirm(false);
                                         }}
+                                        style="gray"
                                     />
                                 </div>
                             </div>
                         )}
-
-                        {error && <p className={styles.error}>{error}</p>}
-
-                        <Button
-                            text="Выйти из аккаунта"
-                            onClick={handleLogout}
-                        />
-                        <Button
-                            text="Редактировать профиль"
-                            onClick={handleEditClick}
-                        />
-                        <Button
-                            text="Удалить аккаунт"
-                            onClick={() => {
-                                setError('');
-                                setIsEditing(false);
-                                setShowDeleteConfirm(true);
-                            }}
-                        />
                     </div>
                 )}
             </main>

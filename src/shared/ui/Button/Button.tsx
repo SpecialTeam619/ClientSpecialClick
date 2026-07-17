@@ -7,10 +7,12 @@ export default function Button({
     to,
     active = true,
     onClick,
+    style = ''
 }: {
     text?: string;
     to?: string;
     active?: boolean;
+    style?: string;
     onClick?: (
         event: MouseEvent<HTMLButtonElement>,
     ) => void | Promise<void | boolean> | boolean;
@@ -35,7 +37,7 @@ export default function Button({
 
     return (
         <button
-            className={`${styles.button} ${active ? styles.active : ''}`}
+            className={`${styles.button} ${active ? styles.active : ''} ${styles[style]}`}
             onClick={handleClick}
         >
             <h3>{text ? text : 'Продолжить'}</h3>

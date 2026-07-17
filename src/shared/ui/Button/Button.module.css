@@ -26,6 +26,15 @@
     background-color: var(--secondary-color);
 }
 
+.gray {
+    background-color: #F5F4F1;
+    color: black; 
+}
+
+.dangerous {
+    background-color: #ff5757;
+}
+
 @media (min-width: 768px) {
     .button {
         width: 100%;
